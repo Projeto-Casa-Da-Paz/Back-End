@@ -1,0 +1,26 @@
+Anotações Prof. Alex 27-8
+
+php artisan serve
+
+Criação de Controllers Laravel
+
+php artisan make:controller SiteController -r
+
+index - é o listar (retorno de produtos e etc)
+
+Comando para criar o banco conforme migrations:
+>>> php artisan migrate
+
+Model sempre no singular e primeira letra maiúscula:
+
+>>> php artisan make:model Client -m (m é para criar migration junto)
+
+Consultas e execução de QUERY é pela model, toda migration criada, crie uma model
+
+Resposta vem do controller
+
+resources/view/'pasta'/arquivo index.blade.php
+
+arquivo blade não precisa abrir tag php, somente colocar duas chaves
+
+testeGitHub
