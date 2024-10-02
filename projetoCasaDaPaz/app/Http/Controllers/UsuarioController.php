@@ -2,19 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Produto;
 use Illuminate\Http\Request;
 
-class ProdutoController extends Controller
+class UsuarioController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()//listagem - busca
+    public function index()
     {
         //
-        $produtos = Produto::get();
-        return view('produtos.index', ['produtos' => $produtos]);
     }
 
     /**
@@ -39,8 +36,6 @@ class ProdutoController extends Controller
     public function show(string $id)
     {
         //
-        $produtos = Produto::find($id);
-        return view('produtos.show', ['produto' => $produtos]);
     }
 
     /**
