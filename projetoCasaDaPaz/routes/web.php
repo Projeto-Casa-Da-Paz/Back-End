@@ -10,9 +10,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-
+/*
 Route::get('/premios',[PremioController::class,'index'])->name('premios.index');
 
 Route::get('/premios/{id}',[PremioController::class,'show'])->name('premios.show');
-
-Route::post('/login',[UsuarioController::class,'show'])->name('usuarios.show');
+*/
+Route::post('/login', [UsuarioController::class],'show');
