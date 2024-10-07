@@ -116,7 +116,7 @@ class PremioController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $id) //inativar
     {
         //
         $premio = Premio::find($id);
@@ -134,5 +134,20 @@ class PremioController extends Controller
                 'message' => 'Prêmio não encontrado'
             ], 404);
         }
+    }
+
+    public function deactivate($id)
+    {
+        $premio = Premio::findOrFail($id);
+        $premio->ativo = false;
+        $premio->save();
+        return response()->json(['message' => 'Prêmio desativado com sucesso.']);
+    }
+
+    public function restore($id)
+    {
+        $premio = Premio::withTrashed()->findOrFail($id);
+        $premio->restore(); // Restaura o registro desativado
+        return response()->json(['message' => 'Prêmio restaurado com sucesso.']);
     }
 }
