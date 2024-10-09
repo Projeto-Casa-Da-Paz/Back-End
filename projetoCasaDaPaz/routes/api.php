@@ -5,6 +5,7 @@ use App\Http\Controllers\FotoController;
 use App\Http\Controllers\GaleriaController;
 use App\Http\Controllers\InstituicaoController;
 use App\Http\Controllers\PremioController;
+use App\Http\Controllers\BazarController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -60,3 +61,9 @@ Route::post('galerias/{galeriaId}/fotos', [FotoController::class, 'store']); // 
 Route::get('galerias/{galeriaId}/fotos/{id}', [FotoController::class, 'show']); // Exibir uma foto específica
 Route::put('galerias/{galeriaId}/fotos/{id}', [FotoController::class, 'update']); // Atualizar uma foto
 Route::delete('galerias/{galeriaId}/fotos/{id}', [FotoController::class, 'destroy']); // Excluir uma foto
+
+Route::get('/bazares', [BazarController::class, 'index']);
+Route::post('/bazares', [BazarController::class, 'store']);
+Route::get('/bazares/{id}', [BazarController::class, 'show']);
+Route::put('/bazares/{id}', [BazarController::class, 'update']);
+Route::delete('/bazares/{id}', [BazarController::class, 'destroy']);
