@@ -10,6 +10,13 @@ class InstituicaoController extends Controller
     /**
      * Display a listing of the resource.
      */
+
+     public function __construct()
+     {
+         $this->middleware('auth:api');//acesso apenas com o login
+     }
+
+
     public function index()
     {
         // Retorna todas as instituições ativas
