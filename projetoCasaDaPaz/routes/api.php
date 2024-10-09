@@ -6,6 +6,7 @@ use App\Http\Controllers\GaleriaController;
 use App\Http\Controllers\InstituicaoController;
 use App\Http\Controllers\PremioController;
 use App\Http\Controllers\BazarController;
+use App\Http\Controllers\CampanhaController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -67,3 +68,23 @@ Route::post('/bazares', [BazarController::class, 'store']);
 Route::get('/bazares/{id}', [BazarController::class, 'show']);
 Route::put('/bazares/{id}', [BazarController::class, 'update']);
 Route::delete('/bazares/{id}', [BazarController::class, 'destroy']);
+
+Route::get('/campanhas', [CampanhaController::class, 'index']);
+
+// Criar uma nova campanha
+Route::post('/campanhas', [CampanhaController::class, 'store']);
+
+// Exibir uma campanha específica
+Route::get('/campanhas/{id}', [CampanhaController::class, 'show']);
+
+// Atualizar uma campanha específica
+Route::put('/campanhas/{id}', [CampanhaController::class, 'update']);
+
+// Excluir logicamente (soft delete) uma campanha específica
+Route::delete('/campanhas/{id}', [CampanhaController::class, 'destroy']);
+
+// Restaurar uma campanha excluída logicamente
+Route::put('/campanhas/{id}/restore', [CampanhaController::class, 'restore']);
+
+// Listar todas as campanhas excluídas logicamente (soft deleted)
+Route::get('/campanhas/trashed', [CampanhaController::class, 'trashed']);
