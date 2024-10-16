@@ -7,7 +7,9 @@ use App\Http\Controllers\InstituicaoController;
 use App\Http\Controllers\PremioController;
 use App\Http\Controllers\BazarController;
 use App\Http\Controllers\CampanhaController;
+use App\Http\Controllers\DoacaoController;
 use App\Http\Controllers\VoluntarioController;
+use App\Http\Controllers\DocumentoController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -71,3 +73,16 @@ Route::get('/voluntarios/{id}', [VoluntarioController::class, 'show']);
 Route::post('/voluntarios', [VoluntarioController::class, 'store']);
 Route::put('/voluntarios/{id}', [VoluntarioController::class, 'update']);
 Route::delete('/voluntarios/{id}', [VoluntarioController::class, 'destroy']);
+
+Route::get('/doacoes', [DoacaoController::class, 'index']);
+Route::get('/doacoes/{id}', [DoacaoController::class, 'show']);
+Route::post('/doacoes', [DoacaoController::class, 'store']);
+Route::put('/doacoes/{id}', [DoacaoController::class, 'update']);
+Route::delete('/doacoes/{id}', [DoacaoController::class, 'destroy']);
+
+Route::get('/documentos', [DocumentoController::class, 'index']);          // Listar todos os documentos
+Route::get('/documentos/{id}', [DocumentoController::class, 'show']);      // Exibir um documento específico
+Route::post('/documentos', [DocumentoController::class, 'store']);         // Criar um novo documento
+Route::put('/documentos/{id}', [DocumentoController::class, 'update']);    // Atualizar um documento existente
+Route::delete('/documentos/{id}', [DocumentoController::class, 'destroy']); // Deletar um documento
+
