@@ -117,34 +117,5 @@ class CampanhaController extends Controller
     /**
      * Restore a soft deleted resource.
      */
-    public function restore(string $id)
-    {
-        // Restaurar uma campanha excluída logicamente
-        $campanha = Campanha::onlyTrashed()->find($id);
 
-        if ($campanha) {
-            $campanha->restore();
-
-            return response()->json([
-                'success' => true,
-                'message' => 'Campanha restaurada com sucesso!',
-                'campanha' => $campanha
-            ]);
-        } else {
-            return response()->json([
-                'success' => false,
-                'message' => 'Campanha não encontrada.'
-            ], 404);
-        }
-    }
-
-    /**
-     * Display a listing of soft deleted resources.
-     */
-    public function trashed()
-    {
-        // Exibir todas as campanhas excluídas logicamente
-        $campanhas = Campanha::onlyTrashed()->get();
-        return response()->json($campanhas);
-    }
 }

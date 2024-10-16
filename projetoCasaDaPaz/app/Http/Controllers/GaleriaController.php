@@ -121,34 +121,5 @@ class GaleriaController extends Controller
     /**
      * Restore a soft deleted resource.
      */
-    public function restore(string $id)
-    {
-        // Restaurar uma galeria excluída logicamente
-        $galeria = Galeria::onlyTrashed()->find($id);
 
-        if ($galeria) {
-            $galeria->restore();
-
-            return response()->json([
-                'success' => true,
-                'message' => 'Galeria restaurada com sucesso!',
-                'galeria' => $galeria
-            ]);
-        } else {
-            return response()->json([
-                'success' => false,
-                'message' => 'Galeria não encontrada.'
-            ], 404);
-        }
-    }
-
-    /**
-     * Display a listing of soft deleted resources.
-     */
-    public function trashed()
-    {
-        // Exibir todas as galerias que foram excluídas logicamente
-        $galerias = Galeria::onlyTrashed()->get();
-        return response()->json($galerias);
-    }
 }

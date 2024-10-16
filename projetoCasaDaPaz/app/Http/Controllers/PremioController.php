@@ -136,18 +136,4 @@ class PremioController extends Controller
         }
     }
 
-    public function deactivate($id)
-    {
-        $premio = Premio::findOrFail($id);
-        $premio->ativo = false;
-        $premio->save();
-        return response()->json(['message' => 'Prêmio desativado com sucesso.']);
-    }
-
-    public function restore($id)
-    {
-        $premio = Premio::withTrashed()->findOrFail($id);
-        $premio->restore(); // Restaura o registro desativado
-        return response()->json(['message' => 'Prêmio restaurado com sucesso.']);
-    }
 }
