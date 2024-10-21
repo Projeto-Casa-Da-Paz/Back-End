@@ -12,7 +12,7 @@ class AuthController extends Controller
 
     public function login(Request $request): JsonResponse
     {
-        dd(request()->all);
+        // dd(request()->all);
         $credentials = request(['email', 'password']);
 
         if (! $token = auth('api')->attempt($credentials)) {
@@ -32,7 +32,7 @@ class AuthController extends Controller
         auth('api')->logout();
         return response()->json(['message' => 'Successfully logged out']);
     }
-
+/*
     public function refresh()
     {
         return $this->respondWithToken(auth('api')->refresh());
@@ -45,5 +45,5 @@ class AuthController extends Controller
             'token_type' => 'bearer',
             'expires_in' => auth('api')->factory()->getTTL() * 60
         ]);
-    }
+    }*/
 }

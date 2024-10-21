@@ -30,7 +30,7 @@ class BazarController extends Controller
     {
         // Validação dos dados
         $data = $request->validate([
-            'periodo_atividade' => 'required|datetime', // Período de atividade é um campo datetime
+            'periodo_atividade' => 'required|datetime',
             'localidade' => 'required|string|max:255',
             'contato' => 'required|string|max:100',
             'foto' => 'nullable|string|max:100',

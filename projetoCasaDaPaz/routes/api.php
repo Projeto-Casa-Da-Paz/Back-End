@@ -10,6 +10,7 @@ use App\Http\Controllers\CampanhaController;
 use App\Http\Controllers\DoacaoController;
 use App\Http\Controllers\VoluntarioController;
 use App\Http\Controllers\DocumentoController;
+use App\Http\Controllers\HistoriaController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -80,9 +81,14 @@ Route::post('/doacoes', [DoacaoController::class, 'store']);
 Route::put('/doacoes/{id}', [DoacaoController::class, 'update']);
 Route::delete('/doacoes/{id}', [DoacaoController::class, 'destroy']);
 
-Route::get('/documentos', [DocumentoController::class, 'index']);          // Listar todos os documentos
-Route::get('/documentos/{id}', [DocumentoController::class, 'show']);      // Exibir um documento específico
-Route::post('/documentos', [DocumentoController::class, 'store']);         // Criar um novo documento
-Route::put('/documentos/{id}', [DocumentoController::class, 'update']);    // Atualizar um documento existente
-Route::delete('/documentos/{id}', [DocumentoController::class, 'destroy']); // Deletar um documento
+Route::get('/documentos', [DocumentoController::class, 'index']);
+Route::get('/documentos/{id}', [DocumentoController::class, 'show']);
+Route::post('/documentos', [DocumentoController::class, 'store']);
+Route::put('/documentos/{id}', [DocumentoController::class, 'update']);
+Route::delete('/documentos/{id}', [DocumentoController::class, 'destroy']);
 
+Route::get('/historias', [HistoriaController::class, 'index']);
+Route::get('/historias/{id}', [HistoriaController::class, 'show']);
+Route::post('/historias', [HistoriaController::class, 'store']);
+Route::put('/historias/{id}', [HistoriaController::class, 'update']);
+Route::delete('/historias/{id}', [HistoriaController::class, 'destroy']);
