@@ -11,6 +11,7 @@ use App\Http\Controllers\DoacaoController;
 use App\Http\Controllers\VoluntarioController;
 use App\Http\Controllers\DocumentoController;
 use App\Http\Controllers\HistoriaController;
+use App\Http\Controllers\UsuarioController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -32,30 +33,30 @@ Route::group([
 });
 
 
-Route::get('/premios', [PremioController::class, 'index']); // Listar todos os prêmios
-Route::post('/premios', [PremioController::class, 'store']); // Criar um novo prêmio
-Route::get('/premios/{id}', [PremioController::class, 'show']); // Exibir um prêmio específico
-Route::put('/premios/{id}', [PremioController::class, 'update']); // Atualizar um prêmio
-Route::delete('/premios/{id}', [PremioController::class, 'destroy']); // Deletar um prêmio
+Route::get('/premios', [PremioController::class, 'index']);
+Route::post('/premios', [PremioController::class, 'store']);
+Route::get('/premios/{id}', [PremioController::class, 'show']);
+Route::put('/premios/{id}', [PremioController::class, 'update']);
+Route::delete('/premios/{id}', [PremioController::class, 'destroy']);
 
 
-Route::get('instituicoes/', [InstituicaoController::class, 'index']); // Listar todas as instituições ativas
-Route::post('instituicoes/', [InstituicaoController::class, 'store']); // Criar uma nova instituição
-Route::get('instituicoes/{id}', [InstituicaoController::class, 'show']); // Exibir uma instituição específica (incluindo soft deleted)
-Route::put('instituicoes/{id}', [InstituicaoController::class, 'update']); // Atualizar uma instituição
-Route::delete('instituicoes/{id}', [InstituicaoController::class, 'destroy']); // Excluir logicamente (soft delete)
+Route::get('instituicoes/', [InstituicaoController::class, 'index']);
+Route::post('instituicoes/', [InstituicaoController::class, 'store']);
+Route::get('instituicoes/{id}', [InstituicaoController::class, 'show']);
+Route::put('instituicoes/{id}', [InstituicaoController::class, 'update']);
+Route::delete('instituicoes/{id}', [InstituicaoController::class, 'destroy']);
 
-Route::get('/galerias', [GaleriaController::class, 'index']); // Lista todas as galerias ativas
-Route::post('/galerias', [GaleriaController::class, 'store']); // Cria uma nova galeria
-Route::get('/galerias/{id}', [GaleriaController::class, 'show']); // Exibe uma galeria específica
-Route::put('/galerias/{id}', [GaleriaController::class, 'update']); // Atualiza uma galeria específica
-Route::delete('/galerias/{id}', [GaleriaController::class, 'destroy']); // Exclui logicamente uma galeria (soft delete)
+Route::get('/galerias', [GaleriaController::class, 'index']);
+Route::post('/galerias', [GaleriaController::class, 'store']);
+Route::get('/galerias/{id}', [GaleriaController::class, 'show']);
+Route::put('/galerias/{id}', [GaleriaController::class, 'update']);
+Route::delete('/galerias/{id}', [GaleriaController::class, 'destroy']);
 
-Route::get('galerias/{galeriaId}/fotos', [FotoController::class, 'index']); // Listar todas as fotos de uma galeria
-Route::post('galerias/{galeriaId}/fotos', [FotoController::class, 'store']); // Criar uma nova foto em uma galeria
-Route::get('galerias/{galeriaId}/fotos/{id}', [FotoController::class, 'show']); // Exibir uma foto específica
-Route::put('galerias/{galeriaId}/fotos/{id}', [FotoController::class, 'update']); // Atualizar uma foto
-Route::delete('galerias/{galeriaId}/fotos/{id}', [FotoController::class, 'destroy']); // Excluir uma foto
+Route::get('galerias/{galeriaId}/fotos', [FotoController::class, 'index']);
+Route::post('galerias/{galeriaId}/fotos', [FotoController::class, 'store']);
+Route::get('galerias/{galeriaId}/fotos/{id}', [FotoController::class, 'show']);
+Route::put('galerias/{galeriaId}/fotos/{id}', [FotoController::class, 'update']);
+Route::delete('galerias/{galeriaId}/fotos/{id}', [FotoController::class, 'destroy']);
 
 Route::get('/bazares', [BazarController::class, 'index']);
 Route::post('/bazares', [BazarController::class, 'store']);
@@ -92,3 +93,9 @@ Route::get('/historias/{id}', [HistoriaController::class, 'show']);
 Route::post('/historias', [HistoriaController::class, 'store']);
 Route::put('/historias/{id}', [HistoriaController::class, 'update']);
 Route::delete('/historias/{id}', [HistoriaController::class, 'destroy']);
+
+Route::get('/usuarios', [UsuarioController::class, 'index']);
+Route::post('/usuarios', [UsuarioController::class, 'store']);
+Route::get('/usuarios/{id}', [UsuarioController::class, 'show']);
+Route::put('/usuarios/{id}', [UsuarioController::class, 'update']);
+Route::delete('/usuarios/{id}', [UsuarioController::class, 'destroy']);

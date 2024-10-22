@@ -8,6 +8,10 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:api', ['except' => ['login']]);
+    }
 
 
     public function login(Request $request): JsonResponse
@@ -32,7 +36,7 @@ class AuthController extends Controller
         auth('api')->logout();
         return response()->json(['message' => 'Successfully logged out']);
     }
-/*
+
     public function refresh()
     {
         return $this->respondWithToken(auth('api')->refresh());
@@ -45,5 +49,5 @@ class AuthController extends Controller
             'token_type' => 'bearer',
             'expires_in' => auth('api')->factory()->getTTL() * 60
         ]);
-    }*/
+    }
 }
