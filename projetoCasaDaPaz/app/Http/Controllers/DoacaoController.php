@@ -7,14 +7,14 @@ use Illuminate\Http\Request;
 
 class DoacaoController extends Controller
 {
-    // 1. Listar todas as doações
+
     public function index()
     {
         $doacoes = Doacao::all();
         return response()->json($doacoes);
     }
 
-    // 2. Exibir uma doação específica
+
     public function show($id)
     {
         $doacao = Doacao::find($id);
@@ -26,7 +26,7 @@ class DoacaoController extends Controller
         }
     }
 
-    // 3. Criar uma nova doação
+
     public function store(Request $request)
     {
         $validatedData = $request->validate([
@@ -39,7 +39,7 @@ class DoacaoController extends Controller
         return response()->json(['message' => 'Doação registrada com sucesso', 'doacao' => $doacao], 201);
     }
 
-    // 4. Atualizar uma doação existente
+
     public function update(Request $request, $id)
     {
         $doacao = Doacao::find($id);
@@ -58,7 +58,7 @@ class DoacaoController extends Controller
         return response()->json(['message' => 'Doação atualizada com sucesso', 'doacao' => $doacao]);
     }
 
-    // 5. Deletar uma doação
+
     public function destroy($id)
     {
         $doacao = Doacao::find($id);

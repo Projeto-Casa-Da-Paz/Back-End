@@ -23,12 +23,9 @@ class FotoController extends Controller
         return response()->json($fotos);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request, $galeriaId)
     {
-        // Validar os dados enviados
+
         $data = $request->validate([
             'descricao' => 'nullable|string|max:255',
             'nome' => 'required|string|max:255',
@@ -47,9 +44,7 @@ class FotoController extends Controller
         ]);
     }
 
-    /**
-     * Display the specified resource.
-     */
+
     public function show($galeriaId, $id)
     {
 
@@ -65,9 +60,7 @@ class FotoController extends Controller
         }
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+
     public function update(Request $request, $galeriaId, $id)
     {
 
@@ -95,9 +88,7 @@ class FotoController extends Controller
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+
     public function destroy($galeriaId, $id)
     {
         $foto = Foto::where('id_galeria', $galeriaId)->find($id);

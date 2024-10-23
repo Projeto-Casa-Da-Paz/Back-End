@@ -7,26 +7,22 @@ use Illuminate\Http\Request;
 
 class InstituicaoController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
 
      public function __construct()
      {
-         $this->middleware('auth:api');//acesso apenas com o login
+         $this->middleware('auth:api');
      }
 
 
     public function index()
     {
-        // Retorna todas as instituições ativas
+
         $instituicoes = Instituicao::where('ativo', true)->get();
         return response()->json($instituicoes);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+
     public function store(Request $request)
     {
         $data = $request->validate([
@@ -40,7 +36,7 @@ class InstituicaoController extends Controller
             'end_sede' => 'nullable|string|max:100',
         ]);
 
-        // Criar uma nova instituição
+
         $instituicao = Instituicao::create($data);
 
         return response()->json([
@@ -50,12 +46,8 @@ class InstituicaoController extends Controller
         ]);
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
-        // Encontrar a instituição sem soft deletes
         $instituicao = Instituicao::find($id);
 
         if ($instituicao) {
@@ -68,16 +60,13 @@ class InstituicaoController extends Controller
         }
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
-        // Encontrar a instituição sem soft deletes
+
         $instituicao = Instituicao::find($id);
 
         if ($instituicao) {
-            // Validar os dados atualizados
+
             $data = $request->validate([
                 'nome' => 'required|string|max:100',
                 'telefone' => 'nullable|string|max:100',
@@ -89,7 +78,6 @@ class InstituicaoController extends Controller
                 'end_sede' => 'nullable|string|max:100',
             ]);
 
-            // Atualizar os dados da instituição
             $instituicao->update($data);
 
             return response()->json([
@@ -105,12 +93,9 @@ class InstituicaoController extends Controller
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
-        // Excluir a instituição
+
         $instituicao = Instituicao::find($id);
 
         if ($instituicao) {

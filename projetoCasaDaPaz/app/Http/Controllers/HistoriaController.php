@@ -7,14 +7,14 @@ use Illuminate\Http\Request;
 
 class HistoriaController extends Controller
 {
-    // 1. Listar todas as histórias
+
     public function index()
     {
         $historias = Historia::all();
         return response()->json($historias);
     }
 
-    // 2. Exibir uma história específica
+
     public function show($id)
     {
         $historia = Historia::find($id);
@@ -26,7 +26,7 @@ class HistoriaController extends Controller
         }
     }
 
-    // 3. Criar uma nova história
+
     public function store(Request $request)
     {
         $validatedData = $request->validate([
@@ -39,7 +39,7 @@ class HistoriaController extends Controller
         return response()->json(['message' => 'História criada com sucesso', 'historia' => $historia], 201);
     }
 
-    // 4. Atualizar uma história existente
+
     public function update(Request $request, $id)
     {
         $historia = Historia::find($id);
@@ -58,7 +58,7 @@ class HistoriaController extends Controller
         return response()->json(['message' => 'História atualizada com sucesso', 'historia' => $historia]);
     }
 
-    // 5. Deletar uma história
+
     public function destroy($id)
     {
         $historia = Historia::find($id);

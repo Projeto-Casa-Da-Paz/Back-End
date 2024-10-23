@@ -7,14 +7,13 @@ use Illuminate\Http\Request;
 
 class VoluntarioController extends Controller
 {
-    // 1. Método para listar todos os voluntários
+
     public function index()
     {
         $voluntarios = Voluntario::all();
         return response()->json($voluntarios);
     }
 
-    // 2. Método para exibir um voluntário específico pelo ID
     public function show($id)
     {
         $voluntario = Voluntario::find($id);
@@ -26,7 +25,6 @@ class VoluntarioController extends Controller
         }
     }
 
-    // 3. Método para criar um novo voluntário
     public function store(Request $request)
     {
         $validatedData = $request->validate([
@@ -42,7 +40,6 @@ class VoluntarioController extends Controller
         return response()->json(['message' => 'Voluntário criado com sucesso', 'voluntario' => $voluntario], 201);
     }
 
-    // 4. Método para atualizar um voluntário existente
     public function update(Request $request, $id)
     {
         $voluntario = Voluntario::find($id);
@@ -64,7 +61,6 @@ class VoluntarioController extends Controller
         return response()->json(['message' => 'Voluntário atualizado com sucesso', 'voluntario' => $voluntario]);
     }
 
-    // 5. Método para deletar um voluntário
     public function destroy($id)
     {
         $voluntario = Voluntario::find($id);

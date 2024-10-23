@@ -7,22 +7,14 @@ use Illuminate\Http\Request;
 
 class CampanhaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        // Retorna todas as campanhas ativas (sem soft delete)
         $campanhas = Campanha::whereNull('deleted_at')->get();
         return response()->json($campanhas);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        // Valida os dados recebidos
         $data = $request->validate([
             'nome_campanha' => 'required|string|max:255',
             'data_inicio' => 'required|date',
@@ -30,7 +22,6 @@ class CampanhaController extends Controller
             'detalhes' => 'required|string|max:500',
         ]);
 
-        // Cria uma nova campanha
         $campanha = Campanha::create($data);
 
         return response()->json([
@@ -40,12 +31,9 @@ class CampanhaController extends Controller
         ]);
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
-        // Exibe uma campanha específica
+
         $campanha = Campanha::find($id);
 
         if ($campanha) {
@@ -58,16 +46,13 @@ class CampanhaController extends Controller
         }
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+
     public function update(Request $request, string $id)
     {
-        // Encontra a campanha pelo ID
         $campanha = Campanha::find($id);
 
         if ($campanha) {
-            // Valida os dados de atualização
+
             $data = $request->validate([
                 'nome_campanha' => 'required|string|max:255',
                 'data_inicio' => 'required|date',
@@ -75,7 +60,7 @@ class CampanhaController extends Controller
                 'detalhes' => 'required|string|max:500',
             ]);
 
-            // Atualiza os dados da campanha
+
             $campanha->update($data);
 
             return response()->json([
@@ -91,12 +76,9 @@ class CampanhaController extends Controller
         }
     }
 
-    /**
-     * Remove the specified resource from storage (soft delete).
-     */
     public function destroy(string $id)
     {
-        // Excluir logicamente uma campanha
+
         $campanha = Campanha::find($id);
 
         if ($campanha) {
@@ -114,8 +96,5 @@ class CampanhaController extends Controller
         }
     }
 
-    /**
-     * Restore a soft deleted resource.
-     */
 
 }

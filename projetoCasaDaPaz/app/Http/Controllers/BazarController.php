@@ -7,28 +7,20 @@ use Illuminate\Http\Request;
 
 class BazarController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-
     public function __construct()
     {
-        $this->middleware('auth:api'); // Acesso apenas com o login
+        $this->middleware('auth:api');
     }
 
     public function index()
     {
-        // Retornar todos os bazares
         $bazares = Bazar::all();
         return response()->json($bazares);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        // Validação dos dados
+
         $data = $request->validate([
             'periodo_atividade' => 'required|datetime',
             'localidade' => 'required|string|max:255',
@@ -36,7 +28,6 @@ class BazarController extends Controller
             'foto' => 'nullable|string|max:100',
         ]);
 
-        // Criar novo bazar
         $bazar = Bazar::create($data);
 
         return response()->json([
@@ -46,12 +37,9 @@ class BazarController extends Controller
         ]);
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
-        // Exibir um bazar específico
+
         $bazar = Bazar::find($id);
 
         if ($bazar) {
@@ -64,16 +52,14 @@ class BazarController extends Controller
         }
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+
     public function update(Request $request, string $id)
     {
-        // Encontrar o bazar pelo ID
+
         $bazar = Bazar::find($id);
 
         if ($bazar) {
-            // Validar os dados de atualização
+
             $data = $request->validate([
                 'periodo_atividade' => 'required|datetime',
                 'localidade' => 'required|string|max:255',
@@ -81,7 +67,7 @@ class BazarController extends Controller
                 'foto' => 'nullable|string|max:100',
             ]);
 
-            // Atualizar os dados do bazar
+
             $bazar->update($data);
 
             return response()->json([
@@ -97,12 +83,9 @@ class BazarController extends Controller
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
-        // Excluir permanentemente o bazar
+
         $bazar = Bazar::find($id);
 
         if ($bazar) {

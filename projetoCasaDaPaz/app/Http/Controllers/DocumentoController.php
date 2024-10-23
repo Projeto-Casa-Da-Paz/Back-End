@@ -7,14 +7,14 @@ use Illuminate\Http\Request;
 
 class DocumentoController extends Controller
 {
-    // 1. Listar todos os documentos
+
     public function index()
     {
         $documentos = Documento::all();
         return response()->json($documentos);
     }
 
-    // 2. Exibir um documento específico
+
     public function show($id)
     {
         $documento = Documento::find($id);
@@ -26,7 +26,7 @@ class DocumentoController extends Controller
         }
     }
 
-    // 3. Criar um novo documento
+
     public function store(Request $request)
     {
         $validatedData = $request->validate([
@@ -39,7 +39,7 @@ class DocumentoController extends Controller
         return response()->json(['message' => 'Documento criado com sucesso', 'documento' => $documento], 201);
     }
 
-    // 4. Atualizar um documento existente
+
     public function update(Request $request, $id)
     {
         $documento = Documento::find($id);
@@ -58,7 +58,7 @@ class DocumentoController extends Controller
         return response()->json(['message' => 'Documento atualizado com sucesso', 'documento' => $documento]);
     }
 
-    // 5. Deletar um documento
+
     public function destroy($id)
     {
         $documento = Documento::find($id);

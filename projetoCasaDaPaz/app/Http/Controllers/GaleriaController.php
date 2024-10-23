@@ -7,35 +7,28 @@ use Illuminate\Http\Request;
 
 class GaleriaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
 
      public function __construct()
      {
-         $this->middleware('auth:api');//acesso apenas com o login
+         $this->middleware('auth:api');
      }
 
     public function index()
     {
-        // Retornar todas as galerias ativas
-        $galerias = Galeria::whereNull('deleted_at')->get(); // Soft deletes filtrando apenas os ativos
+
+        $galerias = Galeria::whereNull('deleted_at')->get();
         return response()->json($galerias);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        // Validação dos dados
+
         $data = $request->validate([
             'nome' => 'required|string|max:100',
             'data' => 'required|date',
             'local' => 'required|string|max:255',
         ]);
 
-        // Criar nova galeria
         $galeria = Galeria::create($data);
 
         return response()->json([
@@ -45,12 +38,9 @@ class GaleriaController extends Controller
         ]);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+     public function show(string $id)
     {
-        // Exibir uma galeria específica
+
         $galeria = Galeria::find($id);
 
         if ($galeria) {
@@ -63,23 +53,21 @@ class GaleriaController extends Controller
         }
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+
     public function update(Request $request, string $id)
     {
-        // Encontrar a galeria pelo ID
+
         $galeria = Galeria::find($id);
 
         if ($galeria) {
-            // Validar os dados de atualização
+
             $data = $request->validate([
                 'nome' => 'required|string|max:100',
                 'data' => 'required|date',
                 'local' => 'required|string|max:255',
             ]);
 
-            // Atualizar os dados da galeria
+
             $galeria->update($data);
 
             return response()->json([
@@ -95,12 +83,10 @@ class GaleriaController extends Controller
         }
     }
 
-    /**
-     * Remove the specified resource from storage (soft delete).
-     */
+
     public function destroy(string $id)
     {
-        // Excluir logicamente a galeria (soft delete)
+
         $galeria = Galeria::find($id);
 
         if ($galeria) {
@@ -118,8 +104,5 @@ class GaleriaController extends Controller
         }
     }
 
-    /**
-     * Restore a soft deleted resource.
-     */
 
 }
