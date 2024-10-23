@@ -16,8 +16,6 @@ return new class extends Migration
             $table->string('descricao', 100);
             $table->string('nome', 100);
             $table->timestamps();
-
-            // Define a chave estrangeira e a ação de exclusão em cascata
             $table->foreign('id_galeria')->references('id')->on('galerias')->onDelete('cascade');
         });
     }

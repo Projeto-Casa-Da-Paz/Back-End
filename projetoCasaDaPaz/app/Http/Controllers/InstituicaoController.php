@@ -122,17 +122,4 @@ class InstituicaoController extends Controller
         }
     }
 
-    public function deactivate(string $id)
-    {
-        $instituicao = Instituicao::find($id);
-
-        if ($instituicao) {
-            $instituicao->ativo = false;
-            $instituicao->save();
-
-            return response()->json(['message' => 'Instituição desativada com sucesso.']);
-        } else {
-            return response()->json(['message' => 'Instituição não encontrada.'], 404);
-        }
-    }
 }

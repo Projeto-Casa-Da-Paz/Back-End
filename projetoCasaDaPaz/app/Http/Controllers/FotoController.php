@@ -17,7 +17,7 @@ class FotoController extends Controller
 */
     public function index($galeriaId)
     {
-        // Listar todas as fotos associadas a uma galeria específica
+
         $fotos = Foto::where('id_galeria', $galeriaId)->get();
 
         return response()->json($fotos);
@@ -34,7 +34,6 @@ class FotoController extends Controller
             'nome' => 'required|string|max:255',
         ]);
 
-        // Criar uma nova foto associada a uma galeria
         $foto = Foto::create([
             'id_galeria' => $galeriaId,
             'descricao' => $data['descricao'],
@@ -53,7 +52,7 @@ class FotoController extends Controller
      */
     public function show($galeriaId, $id)
     {
-        // Exibir uma foto específica associada a uma galeria
+
         $foto = Foto::where('id_galeria', $galeriaId)->find($id);
 
         if ($foto) {
@@ -71,17 +70,16 @@ class FotoController extends Controller
      */
     public function update(Request $request, $galeriaId, $id)
     {
-        // Encontrar a foto específica
+
         $foto = Foto::where('id_galeria', $galeriaId)->find($id);
 
         if ($foto) {
-            // Validar os dados atualizados
+
             $data = $request->validate([
                 'descricao' => 'nullable|string|max:255',
                 'nome' => 'required|string|max:255',
             ]);
 
-            // Atualizar os dados da foto
             $foto->update($data);
 
             return response()->json([
@@ -102,7 +100,6 @@ class FotoController extends Controller
      */
     public function destroy($galeriaId, $id)
     {
-        // Excluir uma foto específica
         $foto = Foto::where('id_galeria', $galeriaId)->find($id);
 
         if ($foto) {
