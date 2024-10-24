@@ -14,7 +14,7 @@ use App\Http\Controllers\HistoriaController;
 use App\Http\Controllers\UsuarioController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
+/*
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
@@ -23,6 +23,7 @@ Route::post('login', [AuthController::class, 'login']);
 Route::post('logout',  [AuthController::class, 'logout']);
 Route::post('refresh',  [AuthController::class, 'refresh']);
 Route::post('me', [AuthController::class, 'me']);
+*/
 
 Route::get('/premios', [PremioController::class, 'index']);
 Route::post('/premios', [PremioController::class, 'store']);
@@ -48,6 +49,12 @@ Route::post('galerias/{galeriaId}/fotos', [FotoController::class, 'store']);
 Route::get('galerias/{galeriaId}/fotos/{id}', [FotoController::class, 'show']);
 Route::put('galerias/{galeriaId}/fotos/{id}', [FotoController::class, 'update']);
 Route::delete('galerias/{galeriaId}/fotos/{id}', [FotoController::class, 'destroy']);
+
+Route::get('/fotos', [FotoController::class, 'index']);
+Route::post('/fotos', [FotoController::class, 'store']);
+Route::get('/fotos/{id}', [FotoController::class, 'show']);
+Route::put('/fotos/{id}', [FotoController::class, 'update']);
+Route::delete('/fotos/{id}', [FotoController::class, 'destroy']);
 
 Route::get('/bazares', [BazarController::class, 'index']);
 Route::post('/bazares', [BazarController::class, 'store']);

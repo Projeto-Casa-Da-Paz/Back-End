@@ -10,7 +10,7 @@ class FotoController extends Controller
     /**
      * Display a listing of the resource.
      */
-   /* public function __construct()
+    /* public function __construct()
     {
         $this->middleware('auth:api');//acesso apenas com o login
     }
@@ -28,13 +28,17 @@ class FotoController extends Controller
 
         $data = $request->validate([
             'descricao' => 'nullable|string|max:255',
-            'nome' => 'required|string|max:255',
+            'imagem' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
+        dd($data);
+        if ($request->hasFile('imagem')) {
+            $path = $request->file('imagem')->store('uploads', 'public');
+        }
 
         $foto = Foto::create([
             'id_galeria' => $galeriaId,
             'descricao' => $data['descricao'],
-            'nome' => $data['nome'],
+            'nome' => basename($path),
         ]);
 
         return response()->json([
@@ -43,6 +47,7 @@ class FotoController extends Controller
             'foto' => $foto
         ]);
     }
+
 
 
     public function show($galeriaId, $id)
