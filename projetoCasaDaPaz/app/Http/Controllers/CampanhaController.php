@@ -16,10 +16,10 @@ class CampanhaController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'nome_campanha' => 'required|string|max:255',
+            'nome_campanha' => 'required|string|max:100',
             'data_inicio' => 'required|date',
             'data_final' => 'required|date',
-            'detalhes' => 'required|string|max:500',
+            'detalhes' => 'required|string',
         ]);
 
         $campanha = Campanha::create($data);
@@ -57,7 +57,7 @@ class CampanhaController extends Controller
                 'nome_campanha' => 'required|string|max:255',
                 'data_inicio' => 'required|date',
                 'data_final' => 'required|date',
-                'detalhes' => 'required|string|max:500',
+                'detalhes' => 'required|string|',
             ]);
 
 

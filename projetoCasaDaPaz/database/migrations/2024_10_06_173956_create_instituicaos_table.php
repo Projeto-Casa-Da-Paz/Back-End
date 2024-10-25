@@ -19,8 +19,8 @@ return new class extends Migration
             $table->string('instagram_bazar',100);
             $table->string('fanpage',100);
             $table->string('email',100);
-            $table->string('end_bazar',100);
-            $table->string('end_sede',100);
+            $table->string('end_bazar',255);
+            $table->string('end_sede',255);
 
             $table->timestamps();
 

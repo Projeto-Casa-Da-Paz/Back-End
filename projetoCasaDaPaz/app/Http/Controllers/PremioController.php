@@ -8,14 +8,8 @@ use Illuminate\Http\Request;
 class PremioController extends Controller
 {
 
-/*       public function __construct()
+     public function index()
     {
-        $this->middleware('auth:api');
-    }
- */
-    public function index()
-    {
-
         $premios = Premio::all();
 
         return response()->json($premios);
@@ -28,9 +22,14 @@ class PremioController extends Controller
             'nome' => 'required|string|max:100',
             'categoria' => 'nullable|string|max:100',
             'data_recebimento' => 'nullable|date',
-            'imagem' => 'nullable|string|max:100',
-
+            'imagem' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
+
+
+        if ($request->hasFile('imagem')) {
+            $imagePath = $request->file('imagem')->store('uploads', 'public');
+            $data['imagem'] = basename($imagePath);
+        }
 
         $premio = Premio::create($data);
 
@@ -43,7 +42,6 @@ class PremioController extends Controller
 
     public function show(string $id)
     {
-        //
         $premio = Premio::find($id);
 
         if ($premio) {
@@ -56,7 +54,6 @@ class PremioController extends Controller
         }
     }
 
-
     public function update(Request $request, string $id)
     {
         $premio = Premio::find($id);
@@ -66,8 +63,14 @@ class PremioController extends Controller
                 'nome' => 'required|string|max:100',
                 'categoria' => 'nullable|string|max:100',
                 'data_recebimento' => 'nullable|date',
-                'imagem' => 'nullable|string|max:100',
+                'imagem' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             ]);
+
+
+            if ($request->hasFile('imagem')) {
+                $imagePath = $request->file('imagem')->store('uploads', 'public');
+                $data['imagem'] = basename($imagePath);
+            }
 
             $premio->update($data);
 

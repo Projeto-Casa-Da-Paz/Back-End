@@ -32,8 +32,8 @@ class InstituicaoController extends Controller
             'instagram_bazar' => 'nullable|string|max:100',
             'fanpage' => 'nullable|string|max:100',
             'email' => 'nullable|email|max:100',
-            'end_bazar' => 'nullable|string|max:100',
-            'end_sede' => 'nullable|string|max:100',
+            'end_bazar' => 'nullable|string|max:255',
+            'end_sede' => 'nullable|string|max:255',
         ]);
 
 
@@ -74,8 +74,8 @@ class InstituicaoController extends Controller
                 'instagram_bazar' => 'nullable|string|max:100',
                 'fanpage' => 'nullable|string|max:100',
                 'email' => 'nullable|email|max:100',
-                'end_bazar' => 'nullable|string|max:100',
-                'end_sede' => 'nullable|string|max:100',
+                'end_bazar' => 'nullable|string|max:255',
+                'end_sede' => 'nullable|string|max:255',
             ]);
 
             $instituicao->update($data);

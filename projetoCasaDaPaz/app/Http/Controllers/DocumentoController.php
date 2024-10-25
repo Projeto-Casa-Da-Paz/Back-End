@@ -39,6 +39,16 @@ class DocumentoController extends Controller
         return response()->json(['message' => 'Documento criado com sucesso', 'documento' => $documento], 201);
     }
 
+    public function upload(Request $request)
+    {
+        $request->validate([
+            'nome' => 'required:string|max:100',
+            'documento' => 'required|file|mimes:jpeg,png,pdf|max:2048',
+        ]);
+        $file = $request->file('file');
+        $path = $file->store('uploads');
+        return back()->with('success', 'Arquivo enviado com sucesso.');
+    }
 
     public function update(Request $request, $id)
     {
@@ -53,6 +63,9 @@ class DocumentoController extends Controller
             'documento' => 'required|string',
         ]);
 
+        if (!file_exists(public_path('uploads'))) {
+            mkdir(public_path('uploads'), 0755, true);
+        }
         $documento->update($validatedData);
 
         return response()->json(['message' => 'Documento atualizado com sucesso', 'documento' => $documento]);

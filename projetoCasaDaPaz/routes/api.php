@@ -86,6 +86,8 @@ Route::post('/documentos', [DocumentoController::class, 'store']);
 Route::put('/documentos/{id}', [DocumentoController::class, 'update']);
 Route::delete('/documentos/{id}', [DocumentoController::class, 'destroy']);
 
+Route::post('/upload', [DocumentoController::class, 'upload'])->name('upload');
+
 Route::get('/historias', [HistoriaController::class, 'index']);
 Route::get('/historias/{id}', [HistoriaController::class, 'show']);
 Route::post('/historias', [HistoriaController::class, 'store']);

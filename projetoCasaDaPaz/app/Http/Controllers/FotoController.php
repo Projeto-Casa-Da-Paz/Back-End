@@ -30,6 +30,9 @@ class FotoController extends Controller
             'descricao' => 'nullable|string|max:255',
             'imagem' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
+        if (!file_exists(public_path('imagem'))) {
+            mkdir(public_path('imagem'), 0755, true);
+        }
         dd($data);
         if ($request->hasFile('imagem')) {
             $path = $request->file('imagem')->store('uploads', 'public');
