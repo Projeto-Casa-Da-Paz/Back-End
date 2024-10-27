@@ -19,7 +19,6 @@ class UsuarioResource extends JsonResource
             'nome' => $this->nome,
             'email' => $this->email,
             'perfil' => $this->perfil,
-            // Adicione outros campos conforme necessário
         ];
     }
 }
