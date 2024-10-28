@@ -33,6 +33,10 @@ class HistoriaController extends Controller
             'titulo' => 'required|string|max:100',
             'texto' => 'required|string',
         ]);
+        //irá receber o texto formatado do quill
+        $artigo = new Historia();
+        $artigo->texto = $validatedData['texto'];
+        $artigo->save();
 
         $historia = Historia::create($validatedData);
 
