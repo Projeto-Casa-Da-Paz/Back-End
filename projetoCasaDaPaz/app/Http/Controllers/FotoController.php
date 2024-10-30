@@ -4,58 +4,43 @@ namespace App\Http\Controllers;
 
 use App\Models\Foto;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class FotoController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    /* public function __construct()
-    {
-        $this->middleware('auth:api');//acesso apenas com o login
-    }
-*/
     public function index($galeriaId)
     {
-
         $fotos = Foto::where('id_galeria', $galeriaId)->get();
 
         return response()->json($fotos);
     }
 
+    /**
+     * Store a newly created resource in storage.
+     */
     public function store(Request $request, $galeriaId)
     {
+        $dados = $request->except('_token');
+        $dados['id_galeria'] = $galeriaId;
 
-        $data = $request->validate([
-            'descricao' => 'nullable|string|max:255',
-            'imagem' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-        ]);
-        if (!file_exists(public_path('imagem'))) {
-            mkdir(public_path('imagem'), 0755, true);
-        }
-        dd($data);
-        if ($request->hasFile('imagem')) {
-            $path = $request->file('imagem')->store('uploads', 'public');
+        if ($request->hasFile('imagem') && $request->file('imagem')->isValid()) {
+            $imagemPath = $request->file('imagem')->store('imagens', 'public');
+            $dados['imagem'] = $imagemPath;
         }
 
-        $foto = Foto::create([
-            'id_galeria' => $galeriaId,
-            'descricao' => $data['descricao'],
-            'nome' => basename($path),
-        ]);
+        Foto::create($dados);
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Foto criada com sucesso!',
-            'foto' => $foto
-        ]);
+        return redirect('/fotos');
     }
 
-
-
+    /**
+     * Display the specified resource.
+     */
     public function show($galeriaId, $id)
     {
-
         $foto = Foto::where('id_galeria', $galeriaId)->find($id);
 
         if ($foto) {
@@ -68,51 +53,41 @@ class FotoController extends Controller
         }
     }
 
-
+    /**
+     * Update the specified resource in storage.
+     */
     public function update(Request $request, $galeriaId, $id)
     {
+        $foto = Foto::where('id_galeria', $galeriaId)->findOrFail($id);
+        $dados = $request->only('id_galeria', 'descricao', 'imagem');
 
-        $foto = Foto::where('id_galeria', $galeriaId)->find($id);
+        if ($request->hasFile('imagem') && $request->file('imagem')->isValid()) {
+            if ($foto->imagem) {
+                Storage::disk('public')->delete($foto->imagem);
+            }
 
-        if ($foto) {
-
-            $data = $request->validate([
-                'descricao' => 'nullable|string|max:255',
-                'nome' => 'required|string|max:255',
-            ]);
-
-            $foto->update($data);
-
-            return response()->json([
-                'success' => true,
-                'message' => 'Foto atualizada com sucesso!',
-                'foto' => $foto
-            ]);
-        } else {
-            return response()->json([
-                'success' => false,
-                'message' => 'Foto não encontrada'
-            ], 404);
+            $imagemPath = $request->file('imagem')->store('imagens', 'public');
+            $dados['imagem'] = $imagemPath;
         }
+
+        $foto->update($dados);
+
+        return redirect('/fotos');
     }
 
-
+    /**
+     * Remove the specified resource from storage.
+     */
     public function destroy($galeriaId, $id)
     {
-        $foto = Foto::where('id_galeria', $galeriaId)->find($id);
+        $foto = Foto::where('id_galeria', $galeriaId)->findOrFail($id);
 
-        if ($foto) {
-            $foto->delete();
-
-            return response()->json([
-                'success' => true,
-                'message' => 'Foto excluída com sucesso.'
-            ]);
-        } else {
-            return response()->json([
-                'success' => false,
-                'message' => 'Foto não encontrada'
-            ], 404);
+        if ($foto->imagem) {
+            Storage::disk('public')->delete($foto->imagem);
         }
+
+        $foto->delete();
+
+        return redirect('/fotos')->with('success', 'Foto excluída com sucesso!');
     }
 }

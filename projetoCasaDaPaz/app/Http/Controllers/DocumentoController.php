@@ -31,7 +31,7 @@ class DocumentoController extends Controller
     {
         $validatedData = $request->validate([
             'nome' => 'required|string|max:100',
-            'documento' => 'required|string',
+            'documento' => 'required|file|mimes:jpeg,png,pdf|max:2048',
         ]);
 
         $documento = Documento::create($validatedData);
