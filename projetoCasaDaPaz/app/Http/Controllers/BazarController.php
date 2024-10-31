@@ -4,14 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Bazar;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class BazarController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:api');
-    }
-
     public function index()
     {
         $bazares = Bazar::all();
@@ -19,27 +15,33 @@ class BazarController extends Controller
     }
 
     public function store(Request $request)
-    {
+{
+    $data = $request->validate([
+        'periodo_atividade' => 'required|date',
+        'localidade' => 'required|string|max:255',
+        'contato' => 'required|string|max:100',
+        'foto' => 'nullable|string|max:100',
+    ]);
 
-        $data = $request->validate([
-            'periodo_atividade' => 'required|datetime',
-            'localidade' => 'required|string|max:255',
-            'contato' => 'required|string|max:100',
-            'foto' => 'nullable|string|max:100',
-        ]);
-
-        $bazar = Bazar::create($data);
-
-        return response()->json([
-            'success' => true,
-            'message' => 'Bazar criado com sucesso!',
-            'bazar' => $bazar
-        ]);
+    if ($request->hasFile('imagem')) {
+        $imagePath = $request->file('imagem')->store('uploads', 'public');
+        $data['foto'] = $imagePath;
+    } else {
+        $data['foto'] = null;
     }
+
+    $bazar = Bazar::create($data);
+
+    return response()->json([
+        'success' => true,
+        'message' => 'Bazar criado com sucesso!',
+        'bazar' => $bazar
+    ]);
+}
+
 
     public function show(string $id)
     {
-
         $bazar = Bazar::find($id);
 
         if ($bazar) {
@@ -52,21 +54,27 @@ class BazarController extends Controller
         }
     }
 
-
     public function update(Request $request, string $id)
     {
-
         $bazar = Bazar::find($id);
 
         if ($bazar) {
-
             $data = $request->validate([
-                'periodo_atividade' => 'required|datetime',
+                'periodo_atividade' => 'required|date',
                 'localidade' => 'required|string|max:255',
                 'contato' => 'required|string|max:100',
-                'foto' => 'nullable|string|max:100',
+                'imagem' => 'nullable|file|mimes:jpeg,png,jpg,gif,svg|max:2048',
             ]);
 
+
+            if ($request->hasFile('imagem')) {
+                if ($bazar->imagem) {
+                    Storage::disk('public')->delete($bazar->imagem);
+                }
+
+                $imagePath = $request->file('imagem')->store('uploads', 'public');
+                $data['imagem'] = $imagePath;
+            }
 
             $bazar->update($data);
 
@@ -85,10 +93,14 @@ class BazarController extends Controller
 
     public function destroy(string $id)
     {
-
         $bazar = Bazar::find($id);
 
         if ($bazar) {
+            // Exclui a imagem associada ao bazar, se existir
+            if ($bazar->imagem) {
+                Storage::disk('public')->delete($bazar->imagem);
+            }
+
             $bazar->delete();
 
             return response()->json([

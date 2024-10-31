@@ -16,6 +16,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 
+
 Route::get('/premios', [PremioController::class, 'index']);
 Route::post('/premios', [PremioController::class, 'store']);
 Route::get('/premios/{id}', [PremioController::class, 'show']);
@@ -47,7 +48,8 @@ Route::get('/fotos/{id}', [FotoController::class, 'show']);
 Route::put('/fotos/{id}', [FotoController::class, 'update']);
 Route::delete('/fotos/{id}', [FotoController::class, 'destroy']);
 
-Route::get('/bazares', [BazarController::class, 'index']);
+//Route::get('/bazares', [BazarController::class, 'index']);
+
 Route::post('/bazares', [BazarController::class, 'store']);
 Route::get('/bazares/{id}', [BazarController::class, 'show']);
 Route::put('/bazares/{id}', [BazarController::class, 'update']);

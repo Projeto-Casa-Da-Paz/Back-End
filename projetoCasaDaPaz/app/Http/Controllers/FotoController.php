@@ -23,18 +23,21 @@ class FotoController extends Controller
      */
     public function store(Request $request, $galeriaId)
     {
-        $dados = $request->except('_token');
         $dados['id_galeria'] = $galeriaId;
 
-        if ($request->hasFile('imagem') && $request->file('imagem')->isValid()) {
-            $imagemPath = $request->file('imagem')->store('imagens', 'public');
-            $dados['imagem'] = $imagemPath;
+        // Adiciona a descrição ao array de dados
+        $dados['descricao'] = $request->input('descricao');
+
+        if ($request->hasFile('imagem')) {
+            $imagePath = $request->file('imagem')->store('uploads', 'public');
+            $data['imagem'] = basename($imagePath);
         }
 
         Foto::create($dados);
 
         return redirect('/fotos');
     }
+
 
     /**
      * Display the specified resource.
