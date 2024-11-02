@@ -17,7 +17,6 @@ class DocumentoController extends Controller
     public function show($id)
     {
         $documento = Documento::find($id);
-
         if ($documento) {
             return response()->json($documento);
         } else {
@@ -28,26 +27,33 @@ class DocumentoController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'nome' => 'required|string|max:100',
+            'nome' => 'string|max:100',
             'documento' => 'required|file|mimes:jpeg,png,pdf|max:2048',
+            'id_diretorio' => 'required|exists:diretorios,id',
         ]);
 
-        // Armazenando o arquivo e obtendo o caminho
+        // Verificando se o arquivo foi enviado
         if ($request->hasFile('documento')) {
             $path = $request->file('documento')->store('uploads');
-            $validatedData['documento'] = $path;
+            if ($path) {
+                $validatedData['documento'] = $path;
+                // Criando o documento no banco de dados
+                $documento = Documento::create($validatedData);
+                return response()->json(['message' => 'Documento criado com sucesso', 'documento' => $documento], 201);
+            } else {
+                return response()->json(['message' => 'Falha ao armazenar o arquivo'], 500);
+            }
+        } else {
+            return response()->json(['message' => 'Arquivo não encontrado'], 400);
         }
-
-        $documento = Documento::create($validatedData);
-
-        return response()->json(['message' => 'Documento criado com sucesso', 'documento' => $documento], 201);
     }
 
     public function upload(Request $request)
     {
         $request->validate([
-            'nome' => 'required|string|max:100',  // Corrigido: uso de "string" corretamente
+            'nome' => 'required|string|max:100',
             'documento' => 'required|file|mimes:jpeg,png,pdf|max:2048',
+            'id_diretorio' => 'required|exists:diretorios,id',
         ]);
 
         if ($request->hasFile('documento')) {
@@ -55,21 +61,20 @@ class DocumentoController extends Controller
             return back()->with('success', 'Arquivo enviado com sucesso. Caminho: ' . $path);
         }
 
-
         return back()->withErrors(['message' => 'Arquivo não encontrado.']);
     }
 
     public function update(Request $request, $id)
     {
         $documento = Documento::find($id);
-
         if (!$documento) {
             return response()->json(['message' => 'Documento não encontrado'], 404);
         }
 
         $validatedData = $request->validate([
             'nome' => 'required|string|max:100',
-            'documento' => 'nullable|file|max:2048', // Permitir que seja opcional
+            'documento' => 'nullable|file|max:2048',
+            'id_diretorio' => 'required|exists:diretorios,id',
         ]);
 
         // Armazenando o novo arquivo, se presente
@@ -89,7 +94,6 @@ class DocumentoController extends Controller
     public function destroy($id)
     {
         $documento = Documento::find($id);
-
         if ($documento) {
             if ($documento->documento) {
                 Storage::delete($documento->documento); // Excluindo o arquivo do armazenamento

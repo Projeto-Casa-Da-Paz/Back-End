@@ -62,9 +62,9 @@ class FotoController extends Controller
     public function update(Request $request, $galeriaId, $id)
     {
         $foto = Foto::where('id_galeria', $galeriaId)->findOrFail($id);
-        $dados = $request->only('id_galeria', 'descricao', 'imagem');
+        $dados = $request->only('id_galeria', 'descricao', 'nome');
 
-        if ($request->hasFile('imagem') && $request->file('imagem')->isValid()) {
+        if ($request->hasFile('nome') && $request->file('imagem')->isValid()) {
             if ($foto->imagem) {
                 Storage::disk('public')->delete($foto->imagem);
             }

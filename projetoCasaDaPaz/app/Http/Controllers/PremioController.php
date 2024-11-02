@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 
 class PremioController extends Controller
 {
-
      public function index()
     {
         $premios = Premio::all();

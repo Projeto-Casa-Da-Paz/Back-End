@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 
 class HistoriaController extends Controller
 {
-
     public function index()
     {
         $historias = Historia::all();

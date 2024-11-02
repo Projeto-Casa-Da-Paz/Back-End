@@ -2,109 +2,95 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Instituicao;
 use Illuminate\Http\Request;
+use App\Models\Instituicao;
+use App\Models\Endereco;
+use App\Models\RedeSocial;
 
 class InstituicaoController extends Controller
 {
-
-
-     public function __construct()
-     {
-         $this->middleware('auth:api');
-     }
-
-
+    // Lista todas as instituições
     public function index()
     {
-
-        $instituicoes = Instituicao::where('ativo', true)->get();
+        $instituicoes = Instituicao::with(['enderecos', 'redesSociais'])->get();
         return response()->json($instituicoes);
     }
 
-
+    // Armazena uma nova instituição com endereços e redes sociais
     public function store(Request $request)
     {
-        $data = $request->validate([
-            'nome' => 'required|string|max:100',
-            'telefone' => 'nullable|string|max:100',
-            'instagram' => 'nullable|string|max:100',
-            'instagram_bazar' => 'nullable|string|max:100',
-            'fanpage' => 'nullable|string|max:100',
-            'email' => 'nullable|email|max:100',
-            'end_bazar' => 'nullable|string|max:255',
-            'end_sede' => 'nullable|string|max:255',
-        ]);
+        $instituicao = Instituicao::create($request->only(['nome', 'cnpj', 'telefone', 'email']));
 
+        // Adiciona endereços, se houver
+        if ($request->enderecos) {
+            foreach ($request->enderecos as $enderecoData) {
+                $instituicao->enderecos()->create($enderecoData);
+            }
+        }
 
-        $instituicao = Instituicao::create($data);
+        // Adiciona redes sociais, se houver
+        if ($request->redes_sociais) {
+            foreach ($request->redes_sociais as $redeData) {
+                $instituicao->redesSociais()->create($redeData);
+            }
+        }
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Instituição criada com sucesso!',
-            'instituicao' => $instituicao
-        ]);
+        return response()->json($instituicao->load(['enderecos', 'redesSociais']), 201);
     }
 
-    public function show(string $id)
+    // Mostra uma instituição específica com seus endereços e redes sociais
+    public function show($id)
+    {
+        $instituicao = Instituicao::with(['enderecos', 'redesSociais'])->find($id);
+
+        if (!$instituicao) {
+            return response()->json(['message' => 'Instituição não encontrada'], 404);
+        }
+
+        return response()->json($instituicao);
+    }
+
+    // Atualiza uma instituição, incluindo endereços e redes sociais
+    public function update(Request $request, $id)
     {
         $instituicao = Instituicao::find($id);
 
-        if ($instituicao) {
-            return response()->json($instituicao);
-        } else {
-            return response()->json([
-                'success' => false,
-                'message' => 'Instituição não encontrada'
-            ], 404);
+        if (!$instituicao) {
+            return response()->json(['message' => 'Instituição não encontrada'], 404);
         }
+
+        $instituicao->update($request->only(['nome', 'cnpj', 'telefone', 'email']));
+
+        // Atualiza endereços, se houver
+        if ($request->enderecos) {
+            $instituicao->enderecos()->delete(); // Remove endereços antigos
+            foreach ($request->enderecos as $enderecoData) {
+                $instituicao->enderecos()->create($enderecoData);
+            }
+        }
+
+        // Atualiza redes sociais, se houver
+        if ($request->redes_sociais) {
+            $instituicao->redesSociais()->delete(); // Remove redes antigas
+            foreach ($request->redes_sociais as $redeData) {
+                $instituicao->redesSociais()->create($redeData);
+            }
+        }
+
+        return response()->json($instituicao->load(['enderecos', 'redesSociais']));
     }
 
-    public function update(Request $request, string $id)
+    // Remove uma instituição e seus relacionamentos
+    public function destroy($id)
     {
-
         $instituicao = Instituicao::find($id);
 
-        if ($instituicao) {
-
-            $data = $request->validate([
-                'nome' => 'required|string|max:100',
-                'telefone' => 'nullable|string|max:100',
-                'instagram' => 'nullable|string|max:100',
-                'instagram_bazar' => 'nullable|string|max:100',
-                'fanpage' => 'nullable|string|max:100',
-                'email' => 'nullable|email|max:100',
-                'end_bazar' => 'nullable|string|max:255',
-                'end_sede' => 'nullable|string|max:255',
-            ]);
-
-            $instituicao->update($data);
-
-            return response()->json([
-                'success' => true,
-                'message' => 'Instituição atualizada com sucesso!',
-                'instituicao' => $instituicao
-            ]);
-        } else {
-            return response()->json([
-                'success' => false,
-                'message' => 'Instituição não encontrada'
-            ], 404);
+        if (!$instituicao) {
+            return response()->json(['message' => 'Instituição não encontrada'], 404);
         }
+
+        $instituicao->delete();
+
+        return response()->json(['message' => 'Instituição deletada com sucesso']);
     }
-
-    public function destroy(string $id)
-    {
-
-        $instituicao = Instituicao::find($id);
-
-        if ($instituicao) {
-            $instituicao->delete();
-
-            return response()->json(['message' => 'Instituição excluída com sucesso.']);
-        } else {
-            return response()->json(['message' => 'Instituição não encontrada.'], 404);
-        }
-    }
-
 }

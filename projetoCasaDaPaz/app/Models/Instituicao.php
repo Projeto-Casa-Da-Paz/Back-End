@@ -8,5 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 class Instituicao extends Model
 {
     use HasFactory;
-    protected $fillable = ['nome', 'telefone', 'instagram', 'instagram_bazar', 'fanpage', 'email', 'end_bazar', 'end_sede'];
+
+    protected $fillable = ['nome', 'cnpj', 'telefone', 'email'];
+
+    public function enderecos()
+    {
+        return $this->hasMany(Endereco::class);
+    }
+
+    public function redesSociais()
+    {
+        return $this->hasMany(RedeSocial::class);
+    }
 }

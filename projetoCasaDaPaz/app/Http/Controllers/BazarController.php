@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Storage;
 
 class BazarController extends Controller
 {
+
     public function index()
     {
         $bazares = Bazar::all();

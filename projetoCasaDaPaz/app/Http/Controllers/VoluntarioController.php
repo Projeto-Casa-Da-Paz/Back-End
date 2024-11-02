@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 
 class VoluntarioController extends Controller
 {
-
     public function index()
     {
         $voluntarios = Voluntario::all();

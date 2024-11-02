@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 
 class DoacaoController extends Controller
 {
-
     public function index()
     {
         $doacoes = Doacao::all();
