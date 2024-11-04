@@ -14,10 +14,9 @@ return [
     */
 
     'defaults' => [
-        'guard' => 'web', // Use 'web' ou outro guard que você deseja
-        'passwords' => 'usuarios',
+        'guard' => 'api',
+        'passwords' => 'users',
     ],
-
     /*
     |--------------------------------------------------------------------------
     | Authentication Guards
@@ -32,15 +31,14 @@ return [
     */
 
     'guards' => [
-        'web' => [ // Alterado para usar o guard 'web'
-            'driver' => 'session', // Use o driver de sessão
-            'provider' => 'usuarios',
+        'web' => [
+            'driver' => 'session',
+            'provider' => 'users',
         ],
 
-        // Se você deseja manter o guard 'api' com um driver de sessão:
         'api' => [
-            'driver' => 'token', // Ou 'session' dependendo do que você precisa
-            'provider' => 'usuarios',
+            'driver' => 'jwt',
+            'provider' => 'users',
         ],
     ],
 
@@ -56,9 +54,10 @@ return [
     */
 
     'providers' => [
-        'usuarios' => [ // Mantenha o mesmo nome se necessário
+        'users' => [
             'driver' => 'eloquent',
             'model' => App\Models\Usuario::class,
+            'table' => 'usuarios'
         ],
     ],
 
@@ -74,14 +73,13 @@ return [
     */
 
     'passwords' => [
-        'usuarios' => [
-            'provider' => 'usuarios',
+        'users' => [
+            'provider' => 'users',
             'table' => 'password_resets',
             'expire' => 60,
             'throttle' => 60,
         ],
     ],
-
     /*
     |--------------------------------------------------------------------------
     | Password Confirmation Timeout

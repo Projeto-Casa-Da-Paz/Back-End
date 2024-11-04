@@ -11,23 +11,14 @@ class Usuario extends Authenticatable implements ContractsJWTSubject
 {
     use HasFactory;
 
-    protected $table = 'usuarios';
-
     protected $fillable = [
-        'nome',
-        'email',
-        'perfil',
-        'senha',
+        'nome', 'email', 'perfil', 'senha',
     ];
 
     protected $hidden = [
         'senha',
     ];
 
-    public function getAuthPassword()
-    {
-        return $this->senha;
-    }
     public function getJWTIdentifier()
     {
         return $this->getKey();
@@ -36,5 +27,10 @@ class Usuario extends Authenticatable implements ContractsJWTSubject
     public function getJWTCustomClaims()
     {
         return [];
+    }
+
+    public function getAuthPassword()
+    {
+        return $this->senha;
     }
 }

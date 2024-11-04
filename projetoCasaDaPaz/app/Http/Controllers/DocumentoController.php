@@ -30,16 +30,12 @@ class DocumentoController extends Controller
 
         return response()->json($documento);
     }
-
-    /**
-     * Armazena um novo documento com upload de arquivo.
-     */
     public function store(Request $request)
     {
         $request->validate([
             'nome' => 'required|string|max:255',
             'id_diretorio' => 'required|exists:diretorios,id',
-            'arquivo' => 'required|file|mimes:pdf,doc,docx,txt|max:5120', // aceita apenas arquivos de até 5MB
+            'arquivo' => 'required|file|mimes:pdf,doc,docx,txt|max:5120',
         ]);
 
         // Realiza o upload do arquivo
