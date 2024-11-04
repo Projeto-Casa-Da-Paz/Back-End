@@ -9,88 +9,110 @@ use Illuminate\Support\Facades\Storage;
 class FotoController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Exibe a lista de fotos.
      */
-    public function index($galeriaId)
+    public function index()
     {
-        $fotos = Foto::where('id_galeria', $galeriaId)->get();
-
+        $fotos = Foto::all();
         return response()->json($fotos);
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Mostra uma foto específica.
      */
-    public function store(Request $request, $galeriaId)
+    public function show($id)
     {
-        $dados['id_galeria'] = $galeriaId;
+        $foto = Foto::find($id);
 
-        // Adiciona a descrição ao array de dados
-        $dados['descricao'] = $request->input('descricao');
+        if (!$foto) {
+            return response()->json(['message' => 'Foto não encontrada.'], 404);
+        }
 
+        return response()->json($foto);
+    }
+
+    /**
+     * Armazena uma nova foto com upload de imagem.
+     */
+    public function store(Request $request)
+    {
+        $request->validate([
+            'id_galeria' => 'required|exists:galerias,id',
+            'descricao' => 'nullable|string|max:255',
+            'imagem' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        // Lidar com o upload da imagem
         if ($request->hasFile('imagem')) {
-            $imagePath = $request->file('imagem')->store('uploads', 'public');
-            $data['imagem'] = basename($imagePath);
-        }
-
-        Foto::create($dados);
-
-        return redirect('/fotos');
-    }
-
-
-    /**
-     * Display the specified resource.
-     */
-    public function show($galeriaId, $id)
-    {
-        $foto = Foto::where('id_galeria', $galeriaId)->find($id);
-
-        if ($foto) {
-            return response()->json($foto);
+            $path = $request->file('imagem')->store('fotos', 'public');
         } else {
-            return response()->json([
-                'success' => false,
-                'message' => 'Foto não encontrada'
-            ], 404);
+            return response()->json(['message' => 'Imagem é obrigatória.'], 400);
         }
+
+        $foto = Foto::create([
+            'id_galeria' => $request->id_galeria,
+            'descricao' => $request->descricao,
+            'nome' => $path,
+        ]);
+
+        return response()->json($foto, 201);
     }
 
     /**
-     * Update the specified resource in storage.
+     * Atualiza uma foto existente e permite substituir a imagem.
      */
-    public function update(Request $request, $galeriaId, $id)
+    public function update(Request $request, $id)
     {
-        $foto = Foto::where('id_galeria', $galeriaId)->findOrFail($id);
-        $dados = $request->only('id_galeria', 'descricao', 'nome');
+        $foto = Foto::find($id);
 
-        if ($request->hasFile('nome') && $request->file('imagem')->isValid()) {
-            if ($foto->imagem) {
-                Storage::disk('public')->delete($foto->imagem);
+        if (!$foto) {
+            return response()->json(['message' => 'Foto não encontrada.'], 404);
+        }
+
+        $request->validate([
+            'id_galeria' => 'exists:galerias,id',
+            'descricao' => 'nullable|string|max:255',
+            'imagem' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        // Substituir imagem se houver upload de uma nova imagem
+        if ($request->hasFile('imagem')) {
+            // Deleta a imagem antiga
+            if ($foto->nome && Storage::disk('public')->exists($foto->nome)) {
+                Storage::disk('public')->delete($foto->nome);
             }
 
-            $imagemPath = $request->file('imagem')->store('imagens', 'public');
-            $dados['imagem'] = $imagemPath;
+            // Salva a nova imagem
+            $path = $request->file('imagem')->store('fotos', 'public');
+            $foto->nome = $path;
         }
 
-        $foto->update($dados);
+        // Atualizar os demais campos
+        $foto->id_galeria = $request->id_galeria ?? $foto->id_galeria;
+        $foto->descricao = $request->descricao ?? $foto->descricao;
+        $foto->save();
 
-        return redirect('/fotos');
+        return response()->json($foto);
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove uma foto e sua imagem do armazenamento.
      */
-    public function destroy($galeriaId, $id)
+    public function destroy($id)
     {
-        $foto = Foto::where('id_galeria', $galeriaId)->findOrFail($id);
+        $foto = Foto::find($id);
 
-        if ($foto->imagem) {
-            Storage::disk('public')->delete($foto->imagem);
+        if (!$foto) {
+            return response()->json(['message' => 'Foto não encontrada.'], 404);
+        }
+
+        // Deleta a imagem do armazenamento
+        if ($foto->nome && Storage::disk('public')->exists($foto->nome)) {
+            Storage::disk('public')->delete($foto->nome);
         }
 
         $foto->delete();
 
-        return redirect('/fotos')->with('success', 'Foto excluída com sucesso!');
+        return response()->json(['message' => 'Foto excluída com sucesso.']);
     }
 }
