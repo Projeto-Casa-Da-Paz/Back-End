@@ -35,7 +35,7 @@ class AuthController extends Controller
         // Note que estamos utilizando bcrypt para verificar a senha
         $credentials = [
             'email' => $request->email,
-            'password' => $request->senha,
+            'password' => $request->password,
         ];
 
         if (! $token = Auth::attempt($credentials)) {

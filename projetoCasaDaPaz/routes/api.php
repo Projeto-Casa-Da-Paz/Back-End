@@ -22,6 +22,7 @@ Route::post('login', [AuthController::class, 'login']);
 Route::post('logout', [AuthController::class, 'logout']);
 Route::get('me', [AuthController::class, 'me']);
 
+Route::get('/premios', [PremioController::class, 'index']);
 
 Route::middleware('auth:api')->group(function () {
 
@@ -43,7 +44,6 @@ Route::middleware('auth:api')->group(function () {
     Route::put('instituicoes/{instituicaoId}/redes-sociais/{id}', [RedeSocialController::class, 'update']);
     Route::delete('instituicoes/{instituicaoId}/redes-sociais/{id}', [RedeSocialController::class, 'destroy']);
 
-    Route::get('/premios', [PremioController::class, 'index']);
     Route::post('/premios', [PremioController::class, 'store']);
     Route::get('/premios/{id}', [PremioController::class, 'show']);
     Route::put('/premios/{id}', [PremioController::class, 'update']);
