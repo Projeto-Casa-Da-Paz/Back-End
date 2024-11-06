@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -27,12 +26,14 @@ class AuthController extends Controller
 
         $token = Auth::login($user);
 
-        return response()->json(['access_token' => $token]);
+        return response()->json([
+            'access_token' => $token,
+            'user' => $user, // Retorna os dados completos do usuário
+        ]);
     }
 
     public function login(Request $request)
     {
-        // Note que estamos utilizando bcrypt para verificar a senha
         $credentials = [
             'email' => $request->email,
             'password' => $request->senha,
@@ -42,7 +43,10 @@ class AuthController extends Controller
             return response()->json(['error' => 'Unauthorized'], 401);
         }
 
-        return response()->json(['access_token' => $token]);
+        return response()->json([
+            'access_token' => $token,
+            'user' => Auth::user(), // Retorna os dados completos do usuário autenticado
+        ]);
     }
 
     public function logout()
@@ -53,6 +57,8 @@ class AuthController extends Controller
 
     public function me()
     {
-        return response()->json(Auth::user());
+        return response()->json([
+            'user' => Auth::user(), // Retorna os dados completos do usuário
+        ]);
     }
 }
