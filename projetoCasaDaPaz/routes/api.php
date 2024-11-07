@@ -22,12 +22,14 @@ Route::post('login', [AuthController::class, 'login']);
 Route::post('logout', [AuthController::class, 'logout']);
 Route::get('me', [AuthController::class, 'me']);
 
-Route::get('/premios', [PremioController::class, 'index']);
-Route::post('/premios', [PremioController::class, 'store']);
-Route::get('/premios/{id}', [PremioController::class, 'show']);
-Route::put('/premios/{id}', [PremioController::class, 'update']);
-Route::delete('/premios/{id}', [PremioController::class, 'destroy']);
+
 Route::middleware('auth:api')->group(function () {
+
+    Route::get('/premios', [PremioController::class, 'index']);
+    Route::post('/premios', [PremioController::class, 'store']);
+    Route::get('/premios/{id}', [PremioController::class, 'show']);
+    Route::put('/premios/{id}', [PremioController::class, 'update']);
+    Route::delete('/premios/{id}', [PremioController::class, 'destroy']);
 
     Route::get('instituicoes/', [InstituicaoController::class, 'index']);
     Route::get('instituicoes/{id}', [InstituicaoController::class, 'show']);
@@ -46,8 +48,6 @@ Route::middleware('auth:api')->group(function () {
     Route::get('instituicoes/{instituicaoId}/redes-sociais/{id}', [RedeSocialController::class, 'show']);
     Route::put('instituicoes/{instituicaoId}/redes-sociais/{id}', [RedeSocialController::class, 'update']);
     Route::delete('instituicoes/{instituicaoId}/redes-sociais/{id}', [RedeSocialController::class, 'destroy']);
-
-
 
     Route::get('/galerias', [GaleriaController::class, 'index']);
     Route::post('/galerias', [GaleriaController::class, 'store']);
@@ -90,8 +90,6 @@ Route::middleware('auth:api')->group(function () {
     Route::post('/documentos', [DocumentoController::class, 'store']);
     Route::put('/documentos/{id}', [DocumentoController::class, 'update']);
     Route::delete('/documentos/{id}', [DocumentoController::class, 'destroy']);
-
-    //Route::post('/upload', [DocumentoController::class, 'upload'])->name('upload');
 
     Route::get('/diretorios', [DiretorioController::class, 'index']);
     Route::get('/diretorios/{id}', [DiretorioController::class, 'show']);

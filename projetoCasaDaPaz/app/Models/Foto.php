@@ -12,6 +12,7 @@ class Foto extends Model
         'id_galeria',
         'descricao',
         'nome',
+        'file',
     ];
     public function galeria()
     {
