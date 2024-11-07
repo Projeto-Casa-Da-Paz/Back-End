@@ -36,7 +36,7 @@ class AuthController extends Controller
     {
         $credentials = [
             'email' => $request->email,
-            'password' => $request->senha,
+            'password' => $request->password,
         ];
 
         if (! $token = Auth::attempt($credentials)) {
