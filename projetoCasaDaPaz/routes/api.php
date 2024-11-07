@@ -24,11 +24,12 @@ Route::get('me', [AuthController::class, 'me']);
 
 Route::middleware('auth:api')->group(function () {
 
-    Route::get('/premios', [PremioController::class, 'index']);
-    Route::post('/premios', [PremioController::class, 'store']);
-    Route::get('/premios/{id}', [PremioController::class, 'show']);
-    Route::put('/premios/{id}', [PremioController::class, 'update']);
-    Route::delete('/premios/{id}', [PremioController::class, 'destroy']);
+Route::get('/premios', [PremioController::class, 'index']);
+Route::post('/premios', [PremioController::class, 'store']);
+Route::get('/premios/{id}', [PremioController::class, 'show']);
+Route::put('/premios/{id}', [PremioController::class, 'update']);
+Route::delete('/premios/{id}', [PremioController::class, 'destroy']);
+Route::middleware('auth:api')->group(function () {
 
     Route::get('instituicoes/', [InstituicaoController::class, 'index']);
     Route::get('instituicoes/{id}', [InstituicaoController::class, 'show']);
@@ -47,6 +48,8 @@ Route::middleware('auth:api')->group(function () {
     Route::get('instituicoes/{instituicaoId}/redes-sociais/{id}', [RedeSocialController::class, 'show']);
     Route::put('instituicoes/{instituicaoId}/redes-sociais/{id}', [RedeSocialController::class, 'update']);
     Route::delete('instituicoes/{instituicaoId}/redes-sociais/{id}', [RedeSocialController::class, 'destroy']);
+
+
 
     Route::get('/galerias', [GaleriaController::class, 'index']);
     Route::post('/galerias', [GaleriaController::class, 'store']);
