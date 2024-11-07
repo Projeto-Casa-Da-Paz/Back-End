@@ -22,7 +22,6 @@ Route::post('login', [AuthController::class, 'login']);
 Route::post('logout', [AuthController::class, 'logout']);
 Route::get('me', [AuthController::class, 'me']);
 
-
 Route::middleware('auth:api')->group(function () {
 
     Route::get('/premios', [PremioController::class, 'index']);
