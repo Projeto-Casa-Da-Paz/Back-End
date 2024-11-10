@@ -12,6 +12,7 @@ use App\Http\Controllers\DoacaoController;
 use App\Http\Controllers\DocumentoController;
 use App\Http\Controllers\EnderecoController;
 use App\Http\Controllers\HistoriaController;
+use App\Http\Controllers\ImagemController;
 use App\Http\Controllers\ParceiroController;
 use App\Http\Controllers\RedeSocialController;
 use App\Http\Controllers\UsuarioController;
@@ -22,6 +23,9 @@ Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login']);
 Route::post('logout', [AuthController::class, 'logout']);
 Route::get('me', [AuthController::class, 'me']);
+
+//Route::get('/uploads/{filename}', [ImagemController::class, 'showImage']);
+Route::get('/imagem/{dirname}/{filename}', [ImagemController::class, 'showImage']);
 
 Route::middleware('auth:api')->group(function () {
 
@@ -48,7 +52,6 @@ Route::middleware('auth:api')->group(function () {
     Route::get('instituicoes/{instituicaoId}/redes-sociais/{id}', [RedeSocialController::class, 'show']);
     Route::put('instituicoes/{instituicaoId}/redes-sociais/{id}', [RedeSocialController::class, 'update']);
     Route::delete('instituicoes/{instituicaoId}/redes-sociais/{id}', [RedeSocialController::class, 'destroy']);
-
 
     Route::get('/galerias', [GaleriaController::class, 'index']);
     Route::post('/galerias', [GaleriaController::class, 'store']);
@@ -117,3 +120,5 @@ Route::post('/usuarios', [UsuarioController::class, 'store']);
 Route::get('/usuarios/{id}', [UsuarioController::class, 'show']);
 Route::put('/usuarios/{id}', [UsuarioController::class, 'update']);
 Route::delete('/usuarios/{id}', [UsuarioController::class, 'destroy']);
+
+
