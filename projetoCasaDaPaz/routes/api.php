@@ -60,6 +60,7 @@ Route::middleware('auth:api')->group(function () {
     Route::get('galerias/{galeriaId}/fotos/{id}', [FotoController::class, 'show']);
     Route::put('galerias/{galeriaId}/fotos/{id}', [FotoController::class, 'update']);
     Route::delete('galerias/{galeriaId}/fotos/{id}', [FotoController::class, 'destroy']);
+    Route::delete('/galerias/{galeriaId}/fotos/deleteAll', [FotoController::class, 'deleteAllByGaleria']);
 
     Route::get('/fotos', [FotoController::class, 'index']);
     Route::post('/fotos', [FotoController::class, 'store']);

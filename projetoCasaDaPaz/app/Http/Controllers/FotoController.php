@@ -107,6 +107,17 @@ class FotoController extends Controller
     /**
      * Remove uma foto e sua imagem e arquivo do armazenamento.
      */
+    public function deleteAllByGaleria($galeriaId)
+    {
+        // Deleta todas as fotos associadas ao id da galeria
+        $deletedRows = Foto::where('galeria_id', $galeriaId)->delete();
+
+        if ($deletedRows > 0) {
+            return response()->json(['message' => 'Todas as fotos da galeria foram deletadas com sucesso!'], 200);
+        } else {
+            return response()->json(['message' => 'Nenhuma foto encontrada para esta galeria.'], 404);
+        }
+    }
     public function destroy($id)
     {
         $foto = Foto::find($id);
