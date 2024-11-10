@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Doacao;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class DoacaoController extends Controller
 {
@@ -13,60 +14,55 @@ class DoacaoController extends Controller
         return response()->json($doacoes);
     }
 
+    public function store(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'banco' => 'required|string|max:50',
+            'agencia' => 'required|string|max:10',
+            'conta_corrente' => 'required|string|max:20',
+            'cnpj' => 'required|string|size:18|regex:/\d{2}\.\d{3}\.\d{3}\/\d{4}\-\d{2}/',
+            'titular' => 'required|string|max:100',
+            'chave_pix' => 'required|string|max:100',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+
+        $doacao = Doacao::create($request->all());
+        return response()->json($doacao, 201);
+    }
 
     public function show($id)
     {
-        $doacao = Doacao::find($id);
-
-        if ($doacao) {
-            return response()->json($doacao);
-        } else {
-            return response()->json(['message' => 'Doação não encontrada'], 404);
-        }
+        $doacao = Doacao::findOrFail($id);
+        return response()->json($doacao);
     }
-
-
-    public function store(Request $request)
-    {
-        $validatedData = $request->validate([
-            'metodo_pagamento' => 'required|string|max:255',
-            'conta_destino' => 'required|string|max:255',
-        ]);
-
-        $doacao = Doacao::create($validatedData);
-
-        return response()->json(['message' => 'Doação registrada com sucesso', 'doacao' => $doacao], 201);
-    }
-
 
     public function update(Request $request, $id)
     {
-        $doacao = Doacao::find($id);
-
-        if (!$doacao) {
-            return response()->json(['message' => 'Doação não encontrada'], 404);
-        }
-
-        $validatedData = $request->validate([
-            'metodo_pagamento' => 'required|string|max:255',
-            'conta_destino' => 'required|string|max:255',
+        $validator = Validator::make($request->all(), [
+            'banco' => 'sometimes|required|string|max:50',
+            'agencia' => 'sometimes|required|string|max:10',
+            'conta_corrente' => 'sometimes|required|string|max:20',
+            'cnpj' => 'sometimes|required|string|size:18|regex:/\d{2}\.\d{3}\.\d{3}\/\d{4}\-\d{2}/',
+            'titular' => 'sometimes|required|string|max:100',
+            'chave_pix' => 'sometimes|required|string|max:100',
         ]);
 
-        $doacao->update($validatedData);
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
 
-        return response()->json(['message' => 'Doação atualizada com sucesso', 'doacao' => $doacao]);
+        $doacao = Doacao::findOrFail($id);
+        $doacao->update($request->all());
+        return response()->json($doacao);
     }
-
 
     public function destroy($id)
     {
-        $doacao = Doacao::find($id);
-
-        if ($doacao) {
-            $doacao->delete();
-            return response()->json(['message' => 'Doação excluída com sucesso']);
-        } else {
-            return response()->json(['message' => 'Doação não encontrada'], 404);
-        }
+        $doacao = Doacao::findOrFail($id);
+        $doacao->delete();
+        return response()->json(null, 204);
     }
 }

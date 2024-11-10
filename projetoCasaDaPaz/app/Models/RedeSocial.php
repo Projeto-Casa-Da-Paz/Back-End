@@ -11,6 +11,7 @@ class RedeSocial extends Model
 
     protected $fillable = [
         'nome',
+        'tipo',
         'url',
     ];
 

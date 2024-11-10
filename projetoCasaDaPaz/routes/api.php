@@ -6,12 +6,13 @@ use App\Http\Controllers\GaleriaController;
 use App\Http\Controllers\InstituicaoController;
 use App\Http\Controllers\PremioController;
 use App\Http\Controllers\BazarController;
+use App\Http\Controllers\ColaboradorController;
 use App\Http\Controllers\DiretorioController;
 use App\Http\Controllers\DoacaoController;
-use App\Http\Controllers\VoluntarioController;
 use App\Http\Controllers\DocumentoController;
 use App\Http\Controllers\EnderecoController;
 use App\Http\Controllers\HistoriaController;
+use App\Http\Controllers\ParceiroController;
 use App\Http\Controllers\RedeSocialController;
 use App\Http\Controllers\UsuarioController;
 use Illuminate\Http\Request;
@@ -74,11 +75,11 @@ Route::middleware('auth:api')->group(function () {
     Route::put('/bazares/{id}', [BazarController::class, 'update']);
     Route::delete('/bazares/{id}', [BazarController::class, 'destroy']);
 
-    Route::get('/voluntarios', [VoluntarioController::class, 'index']);
-    Route::get('/voluntarios/{id}', [VoluntarioController::class, 'show']);
-    Route::post('/voluntarios', [VoluntarioController::class, 'store']);
-    Route::put('/voluntarios/{id}', [VoluntarioController::class, 'update']);
-    Route::delete('/voluntarios/{id}', [VoluntarioController::class, 'destroy']);
+    Route::get('/colaboradores', [ColaboradorController::class, 'index']);
+    Route::get('/colaboradores/{id}', [ColaboradorController::class, 'show']);
+    Route::post('/colaboradores', [ColaboradorController::class, 'store']);
+    Route::put('/colaboradores/{id}', [ColaboradorController::class, 'update']);
+    Route::delete('/colaboradores/{id}', [ColaboradorController::class, 'destroy']);
 
     Route::get('/doacoes', [DoacaoController::class, 'index']);
     Route::get('/doacoes/{id}', [DoacaoController::class, 'show']);
@@ -103,6 +104,12 @@ Route::middleware('auth:api')->group(function () {
     Route::post('/historias', [HistoriaController::class, 'store']);
     Route::put('/historias/{id}', [HistoriaController::class, 'update']);
     Route::delete('/historias/{id}', [HistoriaController::class, 'destroy']);
+
+    Route::get('/parceiros', [ParceiroController::class, 'index']);
+    Route::get('/parceiros/{id}', [ParceiroController::class, 'show']);
+    Route::post('/parceiros', [ParceiroController::class, 'store']);
+    Route::put('/parceiros/{id}', [ParceiroController::class, 'update']);
+    Route::delete('/parceiros/{id}', [ParceiroController::class, 'destroy']);
 });
 
 Route::get('/usuarios', [UsuarioController::class, 'index']);
