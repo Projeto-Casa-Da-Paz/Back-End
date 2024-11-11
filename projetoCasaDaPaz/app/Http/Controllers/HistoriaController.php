@@ -27,7 +27,6 @@ class HistoriaController extends Controller
     {
         $request->validate([
             'titulo' => 'required|string|max:100',
-            'texto' => 'required|string',
             'ano_fundacao' => 'nullable|date',
             'MVV' => 'nullable|string',
             'PMH' => 'nullable|string',
@@ -37,7 +36,6 @@ class HistoriaController extends Controller
 
         $historia = new Historia();
         $historia->titulo = $request->titulo;
-        $historia->texto = $request->texto;
         $historia->ano_fundacao = $request->ano_fundacao;
         $historia->MVV = $request->MVV;
         $historia->PMH = $request->PMH;
@@ -64,7 +62,6 @@ class HistoriaController extends Controller
 
         $request->validate([
             'titulo' => 'required|string|max:100',
-            'texto' => 'required|string',
             'ano_fundacao' => 'nullable|date',
             'MVV' => 'nullable|string',
             'PMH' => 'nullable|string',
@@ -73,7 +70,6 @@ class HistoriaController extends Controller
         ]);
 
         $historia->titulo = $request->titulo;
-        $historia->texto = $request->texto;
         $historia->ano_fundacao = $request->ano_fundacao;
         $historia->MVV = $request->MVV;
         $historia->PMH = $request->PMH;
