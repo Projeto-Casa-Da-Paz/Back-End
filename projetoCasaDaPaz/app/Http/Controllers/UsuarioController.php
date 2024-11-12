@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Usuario;
-use App\Http\Resources\UsuarioResource; // Certifique-se de criar o recurso
+use App\Http\Resources\UsuarioResource;
 use Illuminate\Validation\ValidationException;
 
 class UsuarioController extends Controller

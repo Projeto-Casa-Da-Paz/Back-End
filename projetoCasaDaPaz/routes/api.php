@@ -21,6 +21,9 @@ Route::post('login', [AuthController::class, 'login']);
 Route::post('logout', [AuthController::class, 'logout']);
 Route::get('me', [AuthController::class, 'me']);
 
+//Route::get('/uploads/{filename}', [ImagemController::class, 'showImage']);
+Route::get('/imagem/{dirname}/{filename}', [ImagemController::class, 'showImage']);
+
 Route::get('/premios', [PremioController::class, 'index']);
 Route::get('/premios/{id}', [PremioController::class, 'show']);
 
