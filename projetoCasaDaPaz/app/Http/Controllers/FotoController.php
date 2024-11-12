@@ -38,7 +38,6 @@ class FotoController extends Controller
     {
         $request->validate([
             'id_galeria' => 'required|exists:galerias,id',
-            'descricao' => 'nullable|string|max:255',
             'imagens.*' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Validação para múltiplas imagens
             'file' => 'nullable|file|max:10240',
         ]);
@@ -51,7 +50,6 @@ class FotoController extends Controller
                 $path = $imagem->store('fotos', 'public');
                 $uploadedFotos[] = Foto::create([
                     'id_galeria' => $request->id_galeria,
-                    'descricao' => $request->descricao,
                     'nome' => $path,
                     'file' => $request->file ? $request->file('file')->store('arquivos', 'public') : null,
                 ]);
@@ -75,7 +73,6 @@ class FotoController extends Controller
 
         $request->validate([
             'id_galeria' => 'exists:galerias,id',
-            'descricao' => 'nullable|string|max:255',
             'imagem' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
             'file' => 'nullable|file|max:10240',
         ]);

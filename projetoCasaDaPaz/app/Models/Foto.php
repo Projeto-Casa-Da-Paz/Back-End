@@ -10,7 +10,6 @@ class Foto extends Model
     use HasFactory;
     protected $fillable = [
         'id_galeria',
-        'descricao',
         'nome',
         'file',
     ];
