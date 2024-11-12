@@ -38,8 +38,8 @@ class FotoController extends Controller
     {
         $request->validate([
             'id_galeria' => 'required|exists:galerias,id',
-            'imagens.*' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Validação para múltiplas imagens
-            'file' => 'nullable|file|max:10240',
+            'imagens.*' => 'required|image|mimes:jpeg,png,jpg,gif', // Validação para múltiplas imagens
+            'file' => 'nullable|file',
         ]);
 
         $uploadedFotos = [];
@@ -108,7 +108,6 @@ class FotoController extends Controller
     {
         // Deleta todas as fotos associadas ao id da galeria
         $deletedRows = Foto::where('id_galeria', $galeriaId)->delete();
-
         if ($deletedRows > 0) {
             return response()->json(['message' => 'Todas as fotos da galeria foram deletadas com sucesso!'], 200);
         } else {
