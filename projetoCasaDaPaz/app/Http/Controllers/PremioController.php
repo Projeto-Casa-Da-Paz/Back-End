@@ -21,7 +21,7 @@ class PremioController extends Controller
             'nome' => 'required|string|max:100',
             'categoria' => 'nullable|string|max:100',
             'data_recebimento' => 'nullable|date',
-            'imagem' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'imagem' => 'nullable|image|mimes:jpeg,png,jpg,gif',
         ]);
 
 
@@ -62,7 +62,7 @@ class PremioController extends Controller
                 'nome' => 'required|string|max:100',
                 'categoria' => 'nullable|string|max:100',
                 'data_recebimento' => 'nullable|date',
-                'imagem' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+                'imagem' => 'nullable|image|mimes:jpeg,png,jpg,gif',
             ]);
 
 

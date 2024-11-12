@@ -73,8 +73,8 @@ class FotoController extends Controller
 
         $request->validate([
             'id_galeria' => 'exists:galerias,id',
-            'imagem' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
-            'file' => 'nullable|file|max:10240',
+            'imagem' => 'image|mimes:jpeg,png,jpg,gif',
+            'file' => 'nullable|file',
         ]);
 
         // Substituir imagem se houver upload de uma nova imagem

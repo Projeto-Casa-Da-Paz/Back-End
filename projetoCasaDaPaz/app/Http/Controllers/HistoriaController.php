@@ -31,7 +31,7 @@ class HistoriaController extends Controller
             'MVV' => 'nullable|string',
             'PMH' => 'nullable|string',
             'texto_institucional' => 'nullable|string',
-            'foto_capa' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'foto_capa' => 'nullable|image|mimes:jpeg,png,jpg',
         ]);
 
         $historia = new Historia();
@@ -66,7 +66,7 @@ class HistoriaController extends Controller
             'MVV' => 'nullable|string',
             'PMH' => 'nullable|string',
             'texto_institucional' => 'nullable|string',
-            'foto_capa' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'foto_capa' => 'nullable|image|mimes:jpeg,png,jpg',
         ]);
 
         $historia->titulo = $request->titulo;

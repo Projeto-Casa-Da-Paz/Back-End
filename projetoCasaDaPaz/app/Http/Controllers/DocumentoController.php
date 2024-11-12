@@ -35,7 +35,7 @@ class DocumentoController extends Controller
         $request->validate([
             'nome' => 'required|string|max:255',
             'id_diretorio' => 'required|exists:diretorios,id',
-            'arquivo' => 'required|file|mimes:pdf,doc,docx,txt|max:5120',
+            'arquivo' => 'required|file|mimes:pdf,doc,docx,txt',
         ]);
 
         // Realiza o upload do arquivo
@@ -68,7 +68,7 @@ class DocumentoController extends Controller
         $request->validate([
             'nome' => 'nullable|string|max:255',
             'id_diretorio' => 'exists:diretorios,id',
-            'arquivo' => 'file|mimes:pdf,doc,docx,txt|max:5120',
+            'arquivo' => 'file|mimes:pdf,doc,docx,txt',
         ]);
 
         // Substituir o arquivo se houver upload de um novo

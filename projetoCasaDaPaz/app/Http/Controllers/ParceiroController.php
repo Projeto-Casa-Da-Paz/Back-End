@@ -21,7 +21,7 @@ class ParceiroController extends Controller
             'nome' => 'required|string|max:100',
             'classificacao' => 'required|string|max:50',
             'data_inicio' => 'required|date',
-            'imagem' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Validação para imagem
+            'imagem' => 'nullable|image|mimes:jpeg,png,jpg,gif', // Validação para imagem
         ]);
 
         if ($validator->fails()) {
@@ -52,7 +52,7 @@ class ParceiroController extends Controller
             'nome' => 'sometimes|required|string|max:100',
             'classificacao' => 'sometimes|required|string|max:50',
             'data_inicio' => 'sometimes|required|date',
-            'imagem' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'imagem' => 'nullable|image|mimes:jpeg,png,jpg,gif',
         ]);
 
         if ($validator->fails()) {
