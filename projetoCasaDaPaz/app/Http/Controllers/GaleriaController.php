@@ -21,6 +21,7 @@ class GaleriaController extends Controller
             'nome' => 'required|string|max:100',
             'data' => 'required|date',
             'local' => 'required|string|max:255',
+            'qtd_fotos' => 'required|integer',
         ]);
 
         // Cria nova galeria
@@ -61,6 +62,7 @@ class GaleriaController extends Controller
                 'nome' => 'required|string|max:100',
                 'data' => 'required|date',
                 'local' => 'required|string|max:255',
+                'qtd_fotos' => 'required|integer',
             ]);
 
             // Atualiza a galeria

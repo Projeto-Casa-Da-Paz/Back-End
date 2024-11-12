@@ -10,7 +10,7 @@ class Galeria extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['nome', 'data', 'local'];
+    protected $fillable = ['nome', 'data', 'local','qtd_fotos'];
 
     public function fotos()
     {
