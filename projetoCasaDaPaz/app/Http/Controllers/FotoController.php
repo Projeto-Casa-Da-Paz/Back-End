@@ -39,28 +39,28 @@ class FotoController extends Controller
         $request->validate([
             'id_galeria' => 'required|exists:galerias,id',
             'descricao' => 'nullable|string|max:255',
-            'imagem' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'file' => 'nullable|file|max:10240', // Valida o arquivo opcional, com tamanho máximo de 10 MB
+            'imagens.*' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Validação para múltiplas imagens
+            'file' => 'nullable|file|max:10240',
         ]);
 
-        // Lidar com o upload da imagem
-        $path = $request->file('imagem')->store('fotos', 'public');
+        $uploadedFotos = [];
 
-        // Lidar com o upload do arquivo
-        $filePath = null;
-        if ($request->hasFile('file')) {
-            $filePath = $request->file('file')->store('arquivos', 'public');
+        // Lidar com o upload das imagens
+        if ($request->hasFile('imagens')) {
+            foreach ($request->file('imagens') as $imagem) {
+                $path = $imagem->store('fotos', 'public');
+                $uploadedFotos[] = Foto::create([
+                    'id_galeria' => $request->id_galeria,
+                    'descricao' => $request->descricao,
+                    'nome' => $path,
+                    'file' => $request->file ? $request->file('file')->store('arquivos', 'public') : null,
+                ]);
+            }
         }
 
-        $foto = Foto::create([
-            'id_galeria' => $request->id_galeria,
-            'descricao' => $request->descricao,
-            'nome' => $path,
-            'file' => $filePath,
-        ]);
-
-        return response()->json($foto, 201);
+        return response()->json(['fotos' => $uploadedFotos], 201);
     }
+
 
     /**
      * Atualiza uma foto existente e permite substituir a imagem e o arquivo.
