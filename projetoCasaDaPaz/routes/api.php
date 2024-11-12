@@ -27,20 +27,20 @@ Route::get('/imagem/{dirname}/{filename}', [ImagemController::class, 'showImage'
 Route::get('/premios', [PremioController::class, 'index']);
 Route::get('/premios/{id}', [PremioController::class, 'show']);
 
-Route::get('instituicoes/', [InstituicaoController::class, 'index']);
-Route::get('instituicoes/{id}', [InstituicaoController::class, 'show']);
+Route::get('/instituicoes/', [InstituicaoController::class, 'index']);
+Route::get('/instituicoes/{id}', [InstituicaoController::class, 'show']);
 
-Route::get('instituicoes/{instituicaoId}/enderecos', [EnderecoController::class, 'index']);
-Route::get('instituicoes/{instituicaoId}/enderecos/{id}', [EnderecoController::class, 'show']);
+Route::get('/instituicoes/{instituicaoId}/enderecos', [EnderecoController::class, 'index']);
+Route::get('/instituicoes/{instituicaoId}/enderecos/{id}', [EnderecoController::class, 'show']);
 
-Route::get('instituicoes/{instituicaoId}/redes-sociais', [RedeSocialController::class, 'index']);
-Route::get('instituicoes/{instituicaoId}/redes-sociais/{id}', [RedeSocialController::class, 'show']);
+Route::get('/instituicoes/{instituicaoId}/redes-sociais', [RedeSocialController::class, 'index']);
+Route::get('/instituicoes/{instituicaoId}/redes-sociais/{id}', [RedeSocialController::class, 'show']);
 
 Route::get('/galerias', [GaleriaController::class, 'index']);
 Route::get('/galerias/{id}', [GaleriaController::class, 'show']);
 
-Route::get('galerias/{galeriaId}/fotos', [FotoController::class, 'index']);
-Route::get('galerias/{galeriaId}/fotos/{id}', [FotoController::class, 'show']);
+Route::get('/galerias/{galeriaId}/fotos', [FotoController::class, 'index']);
+Route::get('/galerias/{galeriaId}/fotos/{id}', [FotoController::class, 'show']);
 Route::get('/fotos', [FotoController::class, 'index']);
 Route::get('/fotos/{id}', [FotoController::class, 'show']);
 
@@ -70,25 +70,25 @@ Route::middleware('auth:api')->group(function () {
     Route::put('/premios/{id}', [PremioController::class, 'update']);
     Route::delete('/premios/{id}', [PremioController::class, 'destroy']);
 
-    Route::post('instituicoes/', [InstituicaoController::class, 'store']);
-    Route::put('instituicoes/{id}', [InstituicaoController::class, 'update']);
-    Route::delete('instituicoes/{id}', [InstituicaoController::class, 'destroy']);
+    Route::post('/instituicoes/', [InstituicaoController::class, 'store']);
+    Route::put('/instituicoes/{id}', [InstituicaoController::class, 'update']);
+    Route::delete('/instituicoes/{id}', [InstituicaoController::class, 'destroy']);
 
-    Route::post('instituicoes/{instituicaoId}/enderecos', [EnderecoController::class, 'store']);
-    Route::put('instituicoes/{instituicaoId}/enderecos/{id}', [EnderecoController::class, 'update']);
-    Route::delete('instituicoes/{instituicaoId}/enderecos/{id}', [EnderecoController::class, 'destroy']);
+    Route::post('/instituicoes/{instituicaoId}/enderecos', [EnderecoController::class, 'store']);
+    Route::put('/instituicoes/{instituicaoId}/enderecos/{id}', [EnderecoController::class, 'update']);
+    Route::delete('/instituicoes/{instituicaoId}/enderecos/{id}', [EnderecoController::class, 'destroy']);
 
-    Route::post('instituicoes/{instituicaoId}/redes-sociais', [RedeSocialController::class, 'store']);
-    Route::put('instituicoes/{instituicaoId}/redes-sociais/{id}', [RedeSocialController::class, 'update']);
-    Route::delete('instituicoes/{instituicaoId}/redes-sociais/{id}', [RedeSocialController::class, 'destroy']);
+    Route::post('/instituicoes/{instituicaoId}/redes-sociais', [RedeSocialController::class, 'store']);
+    Route::put('/instituicoes/{instituicaoId}/redes-sociais/{id}', [RedeSocialController::class, 'update']);
+    Route::delete('/instituicoes/{instituicaoId}/redes-sociais/{id}', [RedeSocialController::class, 'destroy']);
 
     Route::post('/galerias', [GaleriaController::class, 'store']);
     Route::put('/galerias/{id}', [GaleriaController::class, 'update']);
     Route::delete('/galerias/{id}', [GaleriaController::class, 'destroy']);
 
-    Route::post('galerias/{galeriaId}/fotos', [FotoController::class, 'store']);
-    Route::put('galerias/{galeriaId}/fotos/{id}', [FotoController::class, 'update']);
-    Route::delete('galerias/{galeriaId}/fotos/{id}', [FotoController::class, 'destroy']);
+    Route::post('/galerias/{galeriaId}/fotos', [FotoController::class, 'store']);
+    Route::put('/galerias/{galeriaId}/fotos/{id}', [FotoController::class, 'update']);
+    Route::delete('/galerias/{galeriaId}/fotos/{id}', [FotoController::class, 'destroy']);
     Route::delete('/galerias/{galeriaId}/fotos/deleteAll', [FotoController::class, 'deleteAllByGaleria']);
 
     Route::post('/fotos', [FotoController::class, 'store']);

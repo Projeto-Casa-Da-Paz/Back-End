@@ -107,7 +107,7 @@ class FotoController extends Controller
     public function deleteAllByGaleria($galeriaId)
     {
         // Deleta todas as fotos associadas ao id da galeria
-        $deletedRows = Foto::where('galeria_id', $galeriaId)->delete();
+        $deletedRows = Foto::where('id_galeria', $galeriaId)->delete();
 
         if ($deletedRows > 0) {
             return response()->json(['message' => 'Todas as fotos da galeria foram deletadas com sucesso!'], 200);
