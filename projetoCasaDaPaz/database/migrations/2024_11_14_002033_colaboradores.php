@@ -9,9 +9,9 @@ return new class extends Migration {
     {
         Schema::create('colaboradores', function (Blueprint $table) {
             $table->id();
-            $table->string('nome');
-            $table->string('profissao');
-            $table->string('classificacao');
+            $table->string('nome', 100);
+            $table->string('profissao', 50);
+            $table->string('classificacao', 50);
             $table->string('foto')->nullable();
             $table->timestamps();
         });
