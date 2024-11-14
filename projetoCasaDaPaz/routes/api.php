@@ -67,10 +67,17 @@ Route::get('/historias/{id}', [HistoriaController::class, 'show']);
 Route::get('/parceiros', [ParceiroController::class, 'index']);
 Route::get('/parceiros/{id}', [ParceiroController::class, 'show']);
 
+Route::get('redes-sociais', [RedeSocialController::class, 'index']);
+Route::get('redes-sociais/{id}', [RedeSocialController::class, 'show']);
+
 Route::middleware('auth:api')->group(function () {
     Route::post('/premios', [PremioController::class, 'store']);
     Route::put('/premios/{id}', [PremioController::class, 'update']);
     Route::delete('/premios/{id}', [PremioController::class, 'destroy']);
+
+    Route::post('redes-sociais', [RedeSocialController::class, 'store']);
+    Route::put('redes-sociais/{id}', [RedeSocialController::class, 'update']);
+    Route::delete('redes-sociais/{id}', [RedeSocialController::class, 'destroy']);
 
     Route::post('/instituicoes/', [InstituicaoController::class, 'store']);
     Route::put('/instituicoes/{id}', [InstituicaoController::class, 'update']);

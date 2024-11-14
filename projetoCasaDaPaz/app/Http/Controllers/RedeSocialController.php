@@ -31,6 +31,7 @@ class RedeSocialController extends Controller
         return response()->json($rede, 201);
     }
 
+
     public function show($instituicaoId, $id)
     {
         $rede = RedeSocial::where('instituicao_id', $instituicaoId)->find($id);
