@@ -9,7 +9,5 @@ class Diretorio extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'nome',
-    ];
+    protected $fillable = ['nome'];
 }

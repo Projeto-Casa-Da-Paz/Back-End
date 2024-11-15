@@ -8,18 +8,12 @@ use Illuminate\Support\Facades\Storage;
 
 class DocumentoController extends Controller
 {
-    /**
-     * Exibe uma lista de documentos.
-     */
     public function index()
     {
         $documentos = Documento::all();
         return response()->json($documentos);
     }
 
-    /**
-     * Mostra um documento específico.
-     */
     public function show($id)
     {
         $documento = Documento::find($id);
@@ -38,7 +32,6 @@ class DocumentoController extends Controller
             'arquivo' => 'required|file|mimes:pdf,doc,docx,txt',
         ]);
 
-        // Realiza o upload do arquivo
         if ($request->hasFile('arquivo')) {
             $path = $request->file('arquivo')->store('documentos', 'public');
         } else {
@@ -54,9 +47,6 @@ class DocumentoController extends Controller
         return response()->json($documento, 201);
     }
 
-    /**
-     * Atualiza um documento existente e permite substituir o arquivo.
-     */
     public function update(Request $request, $id)
     {
         $documento = Documento::find($id);
@@ -71,19 +61,15 @@ class DocumentoController extends Controller
             'arquivo' => 'file|mimes:pdf,doc,docx,txt',
         ]);
 
-        // Substituir o arquivo se houver upload de um novo
         if ($request->hasFile('arquivo')) {
-            // Deleta o arquivo antigo
             if ($documento->documento && Storage::disk('public')->exists($documento->documento)) {
                 Storage::disk('public')->delete($documento->documento);
             }
 
-            // Salva o novo arquivo
             $path = $request->file('arquivo')->store('documentos', 'public');
             $documento->documento = $path;
         }
 
-        // Atualizar os demais campos
         $documento->nome = $request->nome ?? $documento->nome;
         $documento->id_diretorio = $request->id_diretorio ?? $documento->id_diretorio;
         $documento->save();
@@ -91,9 +77,6 @@ class DocumentoController extends Controller
         return response()->json($documento);
     }
 
-    /**
-     * Remove um documento e o arquivo associado.
-     */
     public function destroy($id)
     {
         $documento = Documento::find($id);
@@ -102,7 +85,6 @@ class DocumentoController extends Controller
             return response()->json(['message' => 'Documento não encontrado.'], 404);
         }
 
-        // Deleta o arquivo do armazenamento
         if ($documento->documento && Storage::disk('public')->exists($documento->documento)) {
             Storage::disk('public')->delete($documento->documento);
         }

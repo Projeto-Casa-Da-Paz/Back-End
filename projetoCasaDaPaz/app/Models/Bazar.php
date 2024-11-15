@@ -8,10 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Bazar extends Model
 {
     use HasFactory;
-    protected $fillable = [
-        'periodo_atividade',
-        'localidade',
-        'contato',
-        'foto',
-    ];
+    protected $fillable = ['periodo_atividade', 'localidade', 'contato', 'foto'];
 }

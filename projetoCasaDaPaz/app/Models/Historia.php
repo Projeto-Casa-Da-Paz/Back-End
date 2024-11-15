@@ -8,8 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Historia extends Model
 {
     use HasFactory;
-    protected $fillable = [
-        'titulo',
-        'texto',
-    ];
+    protected $fillable = ['titulo','ano_fundacao','MVV','PMH','texto_institucional','foto_capa'];
 }

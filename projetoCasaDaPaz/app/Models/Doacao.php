@@ -11,12 +11,5 @@ class Doacao extends Model
 
     protected $table = 'doacoes';
 
-    protected $fillable = [
-        'banco',
-        'agencia',
-        'conta_corrente',
-        'cnpj',
-        'titular',
-        'chave_pix',
-    ];
+    protected $fillable = ['banco', 'agencia', 'conta_corrente', 'cnpj', 'titular', 'chave_pix'];
 }

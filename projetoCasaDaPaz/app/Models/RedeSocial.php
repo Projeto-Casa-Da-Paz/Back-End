@@ -9,12 +9,7 @@ class RedeSocial extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'instituicao_id',
-        'nome',
-        'tipo',
-        'url',
-    ];
+    protected $fillable = ['instituicao_id', 'nome', 'tipo', 'url'];
 
     public function instituicao()
     {

@@ -8,11 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Foto extends Model
 {
     use HasFactory;
-    protected $fillable = [
-        'id_galeria',
-        'nome',
-        'file',
-    ];
+    protected $fillable = ['id_galeria','nome','file'];
     public function galeria()
     {
         return $this->belongsTo(Galeria::class, 'id_galeria');

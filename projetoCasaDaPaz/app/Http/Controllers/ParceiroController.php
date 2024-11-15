@@ -21,7 +21,7 @@ class ParceiroController extends Controller
             'nome' => 'required|string|max:100',
             'classificacao' => 'required|string|max:50',
             'data_inicio' => 'required|date',
-            'imagem' => 'nullable|image|mimes:jpeg,png,jpg,gif', // Validação para imagem
+            'imagem' => 'nullable|image|mimes:jpeg,png,jpg,gif',
         ]);
 
         if ($validator->fails()) {

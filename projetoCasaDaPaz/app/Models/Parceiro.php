@@ -10,14 +10,8 @@ class Parceiro extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'nome',
-        'classificacao',
-        'data_inicio',
-        'imagem',
-    ];
+    protected $fillable = ['nome', 'classificacao', 'data_inicio', 'imagem'];
 
-    // Accessor para retornar a URL completa da imagem
     public function getImagemUrlAttribute()
     {
         return $this->imagem ? Storage::url($this->imagem) : null;

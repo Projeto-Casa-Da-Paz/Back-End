@@ -9,14 +9,14 @@ return new class extends Migration
     public function up()
     {
         Schema::table('fotos', function (Blueprint $table) {
-            $table->dropColumn('descricao'); // Remove a coluna descricao
+            $table->dropColumn('descricao');
         });
     }
 
     public function down()
     {
         Schema::table('fotos', function (Blueprint $table) {
-            $table->text('descricao')->nullable(); // Recria a coluna descricao, caso a migration seja revertida
+            $table->text('descricao')->nullable();
         });
     }
 };

@@ -12,8 +12,8 @@ class Usuario extends Authenticatable implements ContractsJWTSubject
     use HasFactory;
 
     protected $fillable = [
-        'nome', 'email', 'perfil', 'senha',
-    ];
+       'nome', 'email', 'perfil', 'senha',
+];
 
     protected $hidden = [
         'senha',

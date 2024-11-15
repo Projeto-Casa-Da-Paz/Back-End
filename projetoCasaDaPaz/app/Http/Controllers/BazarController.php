@@ -97,7 +97,6 @@ class BazarController extends Controller
         $bazar = Bazar::find($id);
 
         if ($bazar) {
-            // Exclui a imagem associada ao bazar, se existir
             if ($bazar->imagem) {
                 Storage::disk('public')->delete($bazar->imagem);
             }

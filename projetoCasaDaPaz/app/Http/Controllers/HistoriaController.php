@@ -55,7 +55,6 @@ class HistoriaController extends Controller
         ]);
     }
 
-    // Método para atualizar uma história existente
     public function update(Request $request, $id)
     {
         $historia = Historia::findOrFail($id);

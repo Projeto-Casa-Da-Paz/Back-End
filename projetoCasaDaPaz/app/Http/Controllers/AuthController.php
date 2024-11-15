@@ -45,7 +45,7 @@ class AuthController extends Controller
 
         return response()->json([
             'access_token' => $token,
-            'user' => Auth::user(), // Retorna os dados completos do usuário autenticado
+            'user' => Auth::user(),
         ]);
     }
 
@@ -58,7 +58,7 @@ class AuthController extends Controller
     public function me()
     {
         return response()->json([
-            'user' => Auth::user(), // Retorna os dados completos do usuário
+            'user' => Auth::user(),
         ]);
     }
 }

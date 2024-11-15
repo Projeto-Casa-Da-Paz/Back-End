@@ -11,10 +11,5 @@ class Colaborador extends Model
 
     protected $table = 'colaboradores';
 
-    protected $fillable = [
-        'nome',
-        'profissao',
-        'classificacao',
-        'foto',
-    ];
+    protected $fillable = ['nome', 'profissao', 'classificacao', 'foto'];
 }

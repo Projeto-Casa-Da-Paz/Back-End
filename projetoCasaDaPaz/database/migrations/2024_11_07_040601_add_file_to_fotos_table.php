@@ -6,19 +6,12 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::table('fotos', function (Blueprint $table) {
             $table->string('file')->nullable()->after('nome');
         });
     }
-
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::table('fotos', function (Blueprint $table) {
