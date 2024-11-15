@@ -16,6 +16,7 @@ use App\Http\Controllers\ImagemController;
 use App\Http\Controllers\ParceiroController;
 use App\Http\Controllers\RedeSocialController;
 use App\Http\Controllers\UsuarioController;
+use App\Http\Controllers\VoluntarioController;
 use Illuminate\Support\Facades\Route;
 
 Route::post('register', [AuthController::class, 'register']);
@@ -37,6 +38,10 @@ Route::get('/instituicoes/{instituicaoId}/enderecos/{id}', [EnderecoController::
 
 Route::get('/instituicoes/{instituicaoId}/redes-sociais', [RedeSocialController::class, 'index']);
 Route::get('/instituicoes/{instituicaoId}/redes-sociais/{id}', [RedeSocialController::class, 'show']);
+
+Route::get('/voluntarios', [VoluntarioController::class, 'index']);
+Route::get('/voluntarios/{id}', [VoluntarioController::class, 'show']);
+Route::post('/voluntarios', [VoluntarioController::class, 'store']);
 
 Route::get('/galerias', [GaleriaController::class, 'index']);
 Route::get('/galerias/{id}', [GaleriaController::class, 'show']);
@@ -90,6 +95,9 @@ Route::middleware('auth:api')->group(function () {
     Route::post('/instituicoes/{instituicaoId}/redes-sociais', [RedeSocialController::class, 'store']);
     Route::put('/instituicoes/{instituicaoId}/redes-sociais/{id}', [RedeSocialController::class, 'update']);
     Route::delete('/instituicoes/{instituicaoId}/redes-sociais/{id}', [RedeSocialController::class, 'destroy']);
+
+    Route::put('/voluntarios/{id}', [VoluntarioController::class, 'update']);
+    Route::delete('/voluntarios/{id}', [VoluntarioController::class, 'destroy']);
 
     Route::post('/galerias', [GaleriaController::class, 'store']);
     Route::put('/galerias/{id}', [GaleriaController::class, 'update']);
