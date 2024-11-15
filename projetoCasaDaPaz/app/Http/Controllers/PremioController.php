@@ -67,7 +67,7 @@ class PremioController extends Controller
 
 
             if ($request->hasFile('imagem')) {
-                $imagePath = $request->file('imagem')->store('uploads', 'public');
+                $imagePath = $request->file('imagem')->store('premios', 'public');
                 $data['imagem'] = basename($imagePath);
             }
 
