@@ -9,9 +9,9 @@ use Illuminate\Support\Facades\Storage;
 class FotoController extends Controller
 {
 
-    public function index()
+    public function index($galeriaId)
     {
-        $fotos = Foto::all();
+        $fotos = Foto::where('id_galeria', $galeriaId)->get();
         return response()->json($fotos);
     }
 
