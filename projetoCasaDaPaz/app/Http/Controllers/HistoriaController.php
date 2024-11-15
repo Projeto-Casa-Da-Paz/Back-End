@@ -32,7 +32,6 @@ class HistoriaController extends Controller
         ]);
 
         $historia = new Historia();
-        $historia->titulo = $request->titulo;
         $historia->ano_fundacao = $request->ano_fundacao;
         $historia->MVV = $request->MVV;
         $historia->PMH = $request->PMH;
