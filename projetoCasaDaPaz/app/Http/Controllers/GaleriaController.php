@@ -19,7 +19,7 @@ class GaleriaController extends Controller
             'nome' => 'required|string|max:100',
             'data' => 'required|date',
             'local' => 'required|string|max:255',
-            'qtd_fotos' => 'required|integer',
+            'qtd_fotos' => 'nullable|integer',
         ]);
         $galeria = Galeria::create($data);
 
@@ -51,7 +51,7 @@ class GaleriaController extends Controller
                 'nome' => 'required|string|max:100',
                 'data' => 'required|date',
                 'local' => 'required|string|max:255',
-                'qtd_fotos' => 'required|integer',
+                'qtd_fotos' => 'nullable|integer',
             ]);
             $galeria->update($data);
 
