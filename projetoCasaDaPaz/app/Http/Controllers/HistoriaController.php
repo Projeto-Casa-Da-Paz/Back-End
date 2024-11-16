@@ -14,12 +14,6 @@ class HistoriaController extends Controller
         return response()->json($historias);
     }
 
-    public function show($id)
-    {
-        $historia = Historia::findOrFail($id);
-        return response()->json($historia);
-    }
-
     public function store(Request $request)
     {
         $request->validate([
@@ -29,12 +23,7 @@ class HistoriaController extends Controller
             'texto_institucional' => 'nullable|string',
             'foto_capa' => 'nullable|image|mimes:jpeg,png,jpg',
         ]);
-
-        $historia = new Historia();
-        $historia->ano_fundacao = $request->ano_fundacao;
-        $historia->MVV = $request->MVV;
-        $historia->PMH = $request->PMH;
-        $historia->texto_institucional = $request->texto_institucional;
+        $historia = Historia::create($request->all());
 
         if ($request->hasFile('foto_capa')) {
             $path = $request->file('foto_capa')->store('public/fotos_capa');
@@ -50,6 +39,20 @@ class HistoriaController extends Controller
         ]);
     }
 
+    public function show($id)
+    {
+        $historia = Historia::find($id);
+        if ($historia) {
+            return response()->json($historia);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'História não encontrada.'
+            ], 404);
+        }
+
+    }
+
     public function update(Request $request, $id)
     {
         $historia = Historia::findOrFail($id);
@@ -62,11 +65,7 @@ class HistoriaController extends Controller
             'foto_capa' => 'nullable|image|mimes:jpeg,png,jpg',
         ]);
 
-        $historia->ano_fundacao = $request->ano_fundacao;
-        $historia->MVV = $request->MVV;
-        $historia->PMH = $request->PMH;
-        $historia->texto_institucional = $request->texto_institucional;
-
+        $historia->update($request);
         if ($request->hasFile('foto_capa')) {
             if ($historia->foto_capa) {
                 Storage::delete('public/fotos_capa/' . $historia->foto_capa);
