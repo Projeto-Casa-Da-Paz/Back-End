@@ -23,7 +23,6 @@ class HistoriaController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-
             'ano_fundacao' => 'nullable|date',
             'MVV' => 'nullable|string',
             'PMH' => 'nullable|string',
@@ -45,6 +44,7 @@ class HistoriaController extends Controller
         $historia->save();
 
         return response()->json([
+            'success' => true,
             'message' => 'História criada com sucesso',
             'historia' => $historia
         ]);
@@ -69,7 +69,7 @@ class HistoriaController extends Controller
 
         if ($request->hasFile('foto_capa')) {
             if ($historia->foto_capa) {
-                Storage::delete($historia->foto_capa);
+                Storage::delete('public/fotos_capa/' . $historia->foto_capa);
             }
             $path = $request->file('foto_capa')->store('public/fotos_capa');
             $historia->foto_capa = basename($path);
@@ -78,6 +78,7 @@ class HistoriaController extends Controller
         $historia->save();
 
         return response()->json([
+            'success' => true,
             'message' => 'História atualizada com sucesso',
             'historia' => $historia
         ]);
@@ -88,12 +89,13 @@ class HistoriaController extends Controller
         $historia = Historia::findOrFail($id);
 
         if ($historia->foto_capa) {
-            Storage::delete($historia->foto_capa);
+            Storage::delete('public/fotos_capa/' . $historia->foto_capa);
         }
 
         $historia->delete();
 
         return response()->json([
+            'success' => true,
             'message' => 'História excluída com sucesso'
         ]);
     }
