@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Premio;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class PremioController extends Controller
 {
@@ -65,8 +66,10 @@ class PremioController extends Controller
                 'imagem' => 'nullable|image|mimes:jpeg,png,jpg,gif',
             ]);
 
-
             if ($request->hasFile('imagem')) {
+                if ($premio->imagem) {
+                    Storage::disk('public')->delete('premios/' . $premio->imagem);
+                }
                 $imagePath = $request->file('imagem')->store('premios', 'public');
                 $data['imagem'] = basename($imagePath);
             }
@@ -85,6 +88,7 @@ class PremioController extends Controller
             ], 404);
         }
     }
+
 
     public function destroy(string $id)
     {
