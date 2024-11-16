@@ -81,39 +81,39 @@ Route::middleware('auth:api')->group(function () {
     Route::delete('/premios/{id}', [PremioController::class, 'destroy']);
 
     Route::post('redes-sociais', [RedeSocialController::class, 'store']);
-    Route::put('redes-sociais/{id}', [RedeSocialController::class, 'update']);
+    Route::post('redes-sociais/{id}', [RedeSocialController::class, 'update']);
     Route::delete('redes-sociais/{id}', [RedeSocialController::class, 'destroy']);
 
     Route::post('/instituicoes/', [InstituicaoController::class, 'store']);
-    Route::put('/instituicoes/{id}', [InstituicaoController::class, 'update']);
+    Route::post('/instituicoes/{id}', [InstituicaoController::class, 'update']);
     Route::delete('/instituicoes/{id}', [InstituicaoController::class, 'destroy']);
 
     Route::post('/instituicoes/{instituicaoId}/enderecos', [EnderecoController::class, 'store']);
-    Route::put('/instituicoes/{instituicaoId}/enderecos/{id}', [EnderecoController::class, 'update']);
+    Route::post('/instituicoes/{instituicaoId}/enderecos/{id}', [EnderecoController::class, 'update']);
     Route::delete('/instituicoes/{instituicaoId}/enderecos/{id}', [EnderecoController::class, 'destroy']);
 
     Route::post('/instituicoes/{instituicaoId}/redes-sociais', [RedeSocialController::class, 'store']);
-    Route::put('/instituicoes/{instituicaoId}/redes-sociais/{id}', [RedeSocialController::class, 'update']);
+    Route::post('/instituicoes/{instituicaoId}/redes-sociais/{id}', [RedeSocialController::class, 'update']);
     Route::delete('/instituicoes/{instituicaoId}/redes-sociais/{id}', [RedeSocialController::class, 'destroy']);
 
-    Route::put('/voluntarios/{id}', [VoluntarioController::class, 'update']);
+    Route::post('/voluntarios/{id}', [VoluntarioController::class, 'update']);
     Route::delete('/voluntarios/{id}', [VoluntarioController::class, 'destroy']);
 
     Route::post('/galerias', [GaleriaController::class, 'store']);
-    Route::put('/galerias/{id}', [GaleriaController::class, 'update']);
+    Route::post('/galerias/{id}', [GaleriaController::class, 'update']);
     Route::delete('/galerias/{id}', [GaleriaController::class, 'destroy']);
 
     Route::post('/galerias/{galeriaId}/fotos', [FotoController::class, 'store']);
-    Route::put('/galerias/{galeriaId}/fotos/{id}', [FotoController::class, 'update']);
+    Route::post('/galerias/{galeriaId}/fotos/{id}', [FotoController::class, 'update']);
     Route::delete('/galerias/{galeriaId}/fotos/{id}', [FotoController::class, 'destroy']);
     Route::delete('/galerias/{galeriaId}/fotos/deleteAll', [FotoController::class, 'deleteAllByGaleria']);
 
     Route::post('/fotos', [FotoController::class, 'store']);
-    Route::put('/fotos/{id}', [FotoController::class, 'update']);
+    Route::post('/fotos/{id}', [FotoController::class, 'update']);
     Route::delete('/fotos/{id}', [FotoController::class, 'destroy']);
 
     Route::post('/bazares', [BazarController::class, 'store']);
-    Route::put('/bazares/{id}', [BazarController::class, 'update']);
+    Route::post('/bazares/{id}', [BazarController::class, 'update']);
     Route::delete('/bazares/{id}', [BazarController::class, 'destroy']);
 
     Route::post('/colaboradores', [ColaboradorController::class, 'store']);
@@ -121,15 +121,15 @@ Route::middleware('auth:api')->group(function () {
     Route::delete('/colaboradores/{id}', [ColaboradorController::class, 'destroy']);
 
     Route::post('/doacoes', [DoacaoController::class, 'store']);
-    Route::put('/doacoes/{id}', [DoacaoController::class, 'update']);
+    Route::post('/doacoes/{id}', [DoacaoController::class, 'update']);
     Route::delete('/doacoes/{id}', [DoacaoController::class, 'destroy']);
 
     Route::post('/documentos', [DocumentoController::class, 'store']);
-    Route::put('/documentos/{id}', [DocumentoController::class, 'update']);
+    Route::post('/documentos/{id}', [DocumentoController::class, 'update']);
     Route::delete('/documentos/{id}', [DocumentoController::class, 'destroy']);
 
     Route::post('/diretorios', [DiretorioController::class, 'store']);
-    Route::put('/diretorios/{id}', [DiretorioController::class, 'update']);
+    Route::post('/diretorios/{id}', [DiretorioController::class, 'update']);
     Route::delete('/diretorios/{id}', [DiretorioController::class, 'destroy']);
 
     Route::post('/historias', [HistoriaController::class, 'store']);
@@ -143,5 +143,5 @@ Route::middleware('auth:api')->group(function () {
 Route::get('/usuarios', [UsuarioController::class, 'index']);
 Route::post('/usuarios', [UsuarioController::class, 'store']);
 Route::get('/usuarios/{id}', [UsuarioController::class, 'show']);
-Route::put('/usuarios/{id}', [UsuarioController::class, 'update']);
+Route::post('/usuarios/{id}', [UsuarioController::class, 'update']);
 Route::delete('/usuarios/{id}', [UsuarioController::class, 'destroy']);
