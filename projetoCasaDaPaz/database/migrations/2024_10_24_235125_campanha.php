@@ -18,7 +18,6 @@ return new class extends Migration
                 $table->date('data_final');
                 $table->text('detalhes');
                 $table->timestamps();
-                $table->softDeletes();
             }
         );
     }
