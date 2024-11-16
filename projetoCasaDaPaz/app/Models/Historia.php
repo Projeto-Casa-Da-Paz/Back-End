@@ -16,8 +16,8 @@ class Historia extends Model
      */
     protected $fillable = [
         'ano_fundacao',
-        'MVV',
-        'PMH',
+        'mvv',
+        'pmh',
         'texto_institucional',
         'foto_capa',
     ];

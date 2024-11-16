@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Historia;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Log;
 
 class HistoriaController extends Controller
 {
@@ -59,43 +60,49 @@ class HistoriaController extends Controller
     }
 
     // Atualiza uma história existente
-    public function update(Request $request, $id)
+    public function update(Request $request, string $id)
     {
         $historia = Historia::find($id);
 
-        if (!$historia) {
+        if ($historia) {
+            // Validar os dados da requisição
+            $data = $request->validate([
+                'ano_fundacao' => 'nullable|date',
+                'mvv' => 'nullable|string',
+                'pmh' => 'nullable|string',
+                'texto_institucional' => 'nullable|string',
+                'foto_capa' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            ]);
+
+            // Verificar e processar a foto de capa, se enviada
+            if ($request->hasFile('foto_capa')) {
+                // Excluir a imagem antiga, se existir
+                if ($historia->foto_capa) {
+                    Storage::disk('public')->delete('fotoscapas/' . $historia->foto_capa);
+                }
+
+                // Salvar a nova imagem
+                $imagePath = $request->file('foto_capa')->store('fotoscapas', 'public');
+                $data['foto_capa'] = basename($imagePath);
+            }
+
+            // Sobrescrever todos os campos do modelo com os dados da requisição
+            $historia->fill($data);
+
+            // Salvar as alterações no banco de dados
+            $historia->save();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'História atualizada com sucesso!',
+                'historia' => $historia,
+            ]);
+        } else {
             return response()->json([
                 'success' => false,
-                'message' => 'História não encontrada.',
+                'message' => 'História não encontrada',
             ], 404);
         }
-
-        $request->validate([
-            'ano_fundacao' => 'nullable|date',
-            'MVV' => 'nullable|string',
-            'PMH' => 'nullable|string',
-            'texto_institucional' => 'nullable|string',
-            'foto_capa' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
-        ]);
-
-        $historia->fill($request->except('foto_capa'));
-
-        // Atualizar a foto de capa, se enviada
-        if ($request->hasFile('foto_capa')) {
-            if ($historia->foto_capa) {
-                Storage::delete('public/fotos_capa/' . $historia->foto_capa);
-            }
-            $path = $request->file('foto_capa')->store('public/fotos_capa');
-            $historia->foto_capa = basename($path);
-        }
-
-        $historia->save();
-
-        return response()->json([
-            'success' => true,
-            'message' => 'História atualizada com sucesso!',
-            'historia' => $historia,
-        ]);
     }
 
     // Exclui uma história existente

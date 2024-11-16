@@ -133,7 +133,7 @@ Route::middleware('auth:api')->group(function () {
     Route::delete('/diretorios/{id}', [DiretorioController::class, 'destroy']);
 
     Route::post('/historias', [HistoriaController::class, 'store']);
-    Route::put('/historias/{id}', [HistoriaController::class, 'update']);
+    Route::post('/historias/{id}', [HistoriaController::class, 'update']);
     Route::delete('/historias/{id}', [HistoriaController::class, 'destroy']);
 
     Route::post('/parceiros', [ParceiroController::class, 'store']);
