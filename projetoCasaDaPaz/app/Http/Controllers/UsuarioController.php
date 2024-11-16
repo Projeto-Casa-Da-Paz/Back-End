@@ -51,7 +51,13 @@ class UsuarioController extends Controller
 
         $this->validateRequest($request, $usuario->id);
 
-        $usuario->update($request->only(['nome', 'email', 'perfil', 'senha']));
+        $dadosAtualizados = $request->only(['nome', 'email', 'perfil']);
+
+        if ($request->filled('senha')) {
+            $dadosAtualizados['senha'] = bcrypt($request->senha);
+        }
+
+        $usuario->update($dadosAtualizados);
 
         return new UsuarioResource($usuario);
     }
