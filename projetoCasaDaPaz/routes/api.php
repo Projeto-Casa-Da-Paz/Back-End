@@ -77,7 +77,7 @@ Route::get('redes-sociais/{id}', [RedeSocialController::class, 'show']);
 
 Route::middleware('auth:api')->group(function () {
     Route::post('/premios', [PremioController::class, 'store']);
-    Route::put('/premios/{id}', [PremioController::class, 'update']);
+    Route::post('/premios/{id}', [PremioController::class, 'update']);
     Route::delete('/premios/{id}', [PremioController::class, 'destroy']);
 
     Route::post('redes-sociais', [RedeSocialController::class, 'store']);
@@ -117,7 +117,7 @@ Route::middleware('auth:api')->group(function () {
     Route::delete('/bazares/{id}', [BazarController::class, 'destroy']);
 
     Route::post('/colaboradores', [ColaboradorController::class, 'store']);
-    Route::put('/colaboradores/{id}', [ColaboradorController::class, 'update']);
+    Route::post('/colaboradores/{id}', [ColaboradorController::class, 'update']);
     Route::delete('/colaboradores/{id}', [ColaboradorController::class, 'destroy']);
 
     Route::post('/doacoes', [DoacaoController::class, 'store']);
@@ -137,7 +137,7 @@ Route::middleware('auth:api')->group(function () {
     Route::delete('/historias/{id}', [HistoriaController::class, 'destroy']);
 
     Route::post('/parceiros', [ParceiroController::class, 'store']);
-    Route::put('/parceiros/{id}', [ParceiroController::class, 'update']);
+    Route::post('/parceiros/{id}', [ParceiroController::class, 'update']);
     Route::delete('/parceiros/{id}', [ParceiroController::class, 'destroy']);
 });
 Route::get('/usuarios', [UsuarioController::class, 'index']);

@@ -47,35 +47,42 @@ class ColaboradorController extends Controller
         return response()->json($colaborador);
     }
 
-    public function update(Request $request, $id)
-    {
-        $validator = Validator::make($request->all(), [
+    public function update(Request $request, string $id)
+{
+    $colaborador = Colaborador::find($id);
+
+    if ($colaborador) {
+        $data = $request->validate([
             'nome' => 'sometimes|required|string|max:100',
             'profissao' => 'sometimes|required|string|max:50',
             'classificacao' => 'sometimes|required|string|max:50',
             'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()], 422);
-        }
-
-        $colaborador = Colaborador::findOrFail($id);
-        $data = $request->all();
-
         if ($request->hasFile('foto')) {
             if ($colaborador->foto) {
                 Storage::disk('public')->delete($colaborador->foto);
             }
-
-            $file = $request->file('foto');
-            $filePath = $file->store('colaboradores', 'public');
+            $filePath = $request->file('foto')->store('colaboradores', 'public');
             $data['foto'] = $filePath;
         }
 
-        $colaborador->update($data);
-        return response()->json($colaborador);
+        $colaborador->fill($data);
+        $colaborador->save();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Colaborador atualizado com sucesso!',
+            'colaborador' => $colaborador,
+        ]);
+    } else {
+        return response()->json([
+            'success' => false,
+            'message' => 'Colaborador não encontrado',
+        ], 404);
     }
+}
+
 
     public function destroy($id)
     {

@@ -74,7 +74,9 @@ class PremioController extends Controller
                 $data['imagem'] = basename($imagePath);
             }
 
-            $premio->update($data);
+            $premio->fill($data);
+
+            $premio->save();
 
             return response()->json([
                 'success' => true,

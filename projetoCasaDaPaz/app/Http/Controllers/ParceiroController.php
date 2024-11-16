@@ -46,34 +46,40 @@ class ParceiroController extends Controller
         return response()->json($parceiro);
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, string $id)
     {
-        $validator = Validator::make($request->all(), [
-            'nome' => 'sometimes|required|string|max:100',
-            'classificacao' => 'sometimes|required|string|max:50',
-            'data_inicio' => 'sometimes|required|date',
-            'imagem' => 'nullable|image|mimes:jpeg,png,jpg,gif',
-        ]);
+        $parceiro = Parceiro::find($id);
 
-        if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()], 422);
-        }
+        if ($parceiro) {
+            $data = $request->validate([
+                'nome' => 'sometimes|required|string|max:100',
+                'classificacao' => 'sometimes|required|string|max:50',
+                'data_inicio' => 'sometimes|required|date',
+                'imagem' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            ]);
 
-        $parceiro = Parceiro::findOrFail($id);
-        $data = $request->all();
-
-        if ($request->hasFile('imagem')) {
-            if ($parceiro->imagem) {
-                Storage::disk('public')->delete($parceiro->imagem);
+            if ($request->hasFile('imagem')) {
+                if ($parceiro->imagem) {
+                    Storage::disk('public')->delete($parceiro->imagem);
+                }
+                $imagePath = $request->file('imagem')->store('parceiros', 'public');
+                $data['imagem'] = $imagePath;
             }
 
-            $file = $request->file('imagem');
-            $filePath = $file->store('parceiros', 'public');
-            $data['imagem'] = $filePath;
-        }
+            $parceiro->fill($data);
+            $parceiro->save();
 
-        $parceiro->update($data);
-        return response()->json($parceiro);
+            return response()->json([
+                'success' => true,
+                'message' => 'Parceiro atualizado com sucesso!',
+                'parceiro' => $parceiro,
+            ]);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'Parceiro não encontrado',
+            ], 404);
+        }
     }
 
     public function destroy($id)
