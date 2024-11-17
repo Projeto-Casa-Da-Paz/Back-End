@@ -21,9 +21,9 @@ Acesse a organização completa no [GitHub da Casa da Paz](https://github.com/Pr
 
 Desenvolvido por:
 
-- [Daniel Oliveira](https://github.com/danielsz3) - Frontend Developer  
-- [Felipe Gustavo](https://github.com/devfelipegustavo) - Backend Developer  
-- [João Gabryel](https://github.com/JoaoGabryel) - Frontend Developer  
+- [Daniel Oliveira](https://github.com/danielsz3)
+- [Felipe Gustavo](https://github.com/devfelipegustavo)
+- [João Gabryel](https://github.com/JoaoGabryel)
 
 ## 🛠 Tecnologias Utilizadas
 
