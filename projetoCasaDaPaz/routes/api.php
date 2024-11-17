@@ -24,7 +24,6 @@ Route::post('login', [AuthController::class, 'login']);
 Route::post('logout', [AuthController::class, 'logout']);
 Route::get('me', [AuthController::class, 'me']);
 
-//Route::get('/uploads/{filename}', [ImagemController::class, 'showImage']);
 Route::get('/imagem/{dirname}/{filename}', [ImagemController::class, 'showImage']);
 
 Route::get('/premios', [PremioController::class, 'index']);
@@ -59,9 +58,6 @@ Route::get('/colaboradores/{id}', [ColaboradorController::class, 'show']);
 
 Route::get('/doacoes', [DoacaoController::class, 'index']);
 Route::get('/doacoes/{id}', [DoacaoController::class, 'show']);
-
-Route::get('/documentos', [DocumentoController::class, 'index']);
-Route::get('/documentos/{id}', [DocumentoController::class, 'show']);
 
 Route::get('/diretorios', [DiretorioController::class, 'index']);
 Route::get('/diretorios/{id}', [DiretorioController::class, 'show']);
@@ -123,10 +119,6 @@ Route::middleware('auth:api')->group(function () {
     Route::post('/doacoes', [DoacaoController::class, 'store']);
     Route::put('/doacoes/{id}', [DoacaoController::class, 'update']);
     Route::delete('/doacoes/{id}', [DoacaoController::class, 'destroy']);
-
-    Route::post('/documentos', [DocumentoController::class, 'store']);
-    Route::put('/documentos/{id}', [DocumentoController::class, 'update']);
-    Route::delete('/documentos/{id}', [DocumentoController::class, 'destroy']);
 
     Route::post('/diretorios', [DiretorioController::class, 'store']);
     Route::put('/diretorios/{id}', [DiretorioController::class, 'update']);

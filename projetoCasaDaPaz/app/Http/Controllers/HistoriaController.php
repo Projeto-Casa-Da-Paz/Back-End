@@ -9,14 +9,12 @@ use Illuminate\Support\Facades\Log;
 
 class HistoriaController extends Controller
 {
-    // Retorna todas as histórias
     public function index()
     {
         $historias = Historia::all();
         return response()->json($historias);
     }
 
-    // Cria uma nova história
     public function store(Request $request)
     {
         $request->validate([
@@ -29,7 +27,6 @@ class HistoriaController extends Controller
 
         $historia = new Historia($request->except('foto_capa'));
 
-        // Salvar a foto de capa, se enviada
         if ($request->hasFile('foto_capa')) {
             $path = $request->file('foto_capa')->store('public/fotos_capa');
             $historia->foto_capa = basename($path);
@@ -44,7 +41,6 @@ class HistoriaController extends Controller
         ]);
     }
 
-    // Retorna uma história específica pelo ID
     public function show($id)
     {
         $historia = Historia::find($id);
@@ -59,7 +55,6 @@ class HistoriaController extends Controller
         return response()->json($historia);
     }
 
-    // Atualiza uma história existente
     public function update(Request $request, string $id)
     {
         $historia = Historia::find($id);
@@ -95,7 +90,6 @@ class HistoriaController extends Controller
         }
     }
 
-    // Exclui uma história existente
     public function destroy($id)
     {
         $historia = Historia::find($id);
@@ -107,7 +101,6 @@ class HistoriaController extends Controller
             ], 404);
         }
 
-        // Excluir a foto de capa, se existir
         if ($historia->foto_capa) {
             Storage::delete('public/fotos_capa/' . $historia->foto_capa);
         }
