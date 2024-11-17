@@ -120,10 +120,6 @@ Route::middleware('auth:api')->group(function () {
     Route::post('/doacoes/{id}', [DoacaoController::class, 'update']);
     Route::delete('/doacoes/{id}', [DoacaoController::class, 'destroy']);
 
-    Route::post('/documentos', [DocumentoController::class, 'store']);
-    Route::put('/documentos/{id}', [DocumentoController::class, 'update']);
-    Route::delete('/documentos/{id}', [DocumentoController::class, 'destroy']);
-
     Route::post('/diretorios', [DiretorioController::class, 'store']);
     Route::post('/diretorios/{id}', [DiretorioController::class, 'update']);
     Route::delete('/diretorios/{id}', [DiretorioController::class, 'destroy']);
